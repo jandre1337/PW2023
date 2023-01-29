@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('n_piso');
             $table->boolean('estado');
             $table->integer('qtdd_lugares');
-            $table->foreign('parque_id')->references('id')->on('parques');
+            $table->foreignId('parque_id')->index();
             $table->timestamps();
         });
     }

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->dateTime('data_saida');
             $table->string('veiculo');
             $table->float('preco_pago');
-            $table->foreign('createdby')->references('id')->on('users');
-            $table->foreign('veiculo_id')->references('id')->on('veiculos');
+            $table->foreignId('users_id')->index();
+            $table->foreignId('veiculo_id')->index();
             $table->timestamps();
         });
     }

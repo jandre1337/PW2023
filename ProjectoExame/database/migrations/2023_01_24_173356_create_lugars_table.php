@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('n_lugar');
             $table->float('taxa_lugar');
-            $table->foreign('zona_id')->references('id')->on('zonas');
+            $table->foreignId('zona_id')->index();
             $table->timestamps();
         });
     }

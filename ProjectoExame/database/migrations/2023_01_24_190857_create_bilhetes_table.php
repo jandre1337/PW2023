@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->dateTime('data_entrada');
             $table->dateTime('data_saida');
-            $table->foreign('veiculo_id')->references('id')->on('veiculos');
-            $table->foreign('zona_id')->references('id')->on('zona');
+            $table->foreignId('veiculo_id')->index();
+            $table->foreignId('zona_id')->index();
             $table->timestamps();
         });
     }

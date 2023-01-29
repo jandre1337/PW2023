@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('marca');
             $table->string('modelo');
             $table->string('ano');
-            $table->foreign('proprietario_id')->references('id')->on('users');
-            $table->foreign('frota_id')->references('id')->on('frotas');
+            $table->foreignId('user_id')->index();
+            $table->foreignId('frota_id')->index();
             $table->timestamps();
 
         });

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('tipo_zona');
             $table->float('valor_zona');
-            $table->foreign('piso_id')->references('id')->on('pisos');
+            $table->foreignId('piso_id')->index();
             $table->timestamps();
         });
     }

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->float('preco_final');
             $table->dateTime('data_pagamento');
             $table->string('estado_pagamento');
-            $table->foreign('proprietario_id')->references('id')->on('users');
-            $table->foreign('zonatarifa_id')->references('id')->on('zona_tarifas');
+            $table->foreignId('user_id')->index();
+            $table->foreignId('zona_tarifa_id')->index();
             $table->timestamps();
         });
     }

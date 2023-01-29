@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('zona_tarifas', function (Blueprint $table) {
             $table->id();
-            $table->foreign('zona_id')->references('id')->on('zonas');
-            $table->foreign('tarifa_id')->references('id')->on('tarifas');
+            $table->foreignId('zona_id')->index();
+            $table->foreignId('tarifa_id')->index();
             $table->dateTime('data_entrada');
             $table->dateTime('data_saida');
             $table->string('modalidade');
