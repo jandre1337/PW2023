@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Lugar extends Model
 {
     use HasFactory;
+
+    public function zona()
+    {
+        return $this->belongsTo(Zona::class);
+    }
 }

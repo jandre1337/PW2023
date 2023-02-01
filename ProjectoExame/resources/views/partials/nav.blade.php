@@ -7,5 +7,11 @@
         <li class="nav-item">
             <a class="nav-link font-weight-bold" style="color:black"; href="/clientes">Clientes</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" style="color:black"; href="/parques">Parques</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" style="color:black"; href="/tarifarios">Tarifarios</a>
+        </li>
     </ul>
 </nav>

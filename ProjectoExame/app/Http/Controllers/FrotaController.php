@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Frota;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class ClienteController extends Controller
+class FrotaController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
 
-        return view('cliente-list',
-            ['clientes' => User::all()]);
+        return view('frota-list',
+            ['frotas' => Frota::all()]);
     }
 
     /**
@@ -28,7 +25,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('cliente-new');
+        return view('frota-new');
     }
 
     /**
@@ -40,22 +37,17 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'email' => 'required|email|unique:users,email',
-            'name' => 'required',
-            'cc' => 'required|max:10',
-            'password' => 'required|min:6'
+            'tamanho_frota' => 'required'
         ]);
 
-        $cliente = new User();
+        $frota = new Frota();
 
-        $cliente->fill([
-            'name' => $request->name,
-            'email' => $request->email,
-            'cc' => $request->cc,
-            'Password' => Hash::make($request->Password)
+        $frota->fill([
+            'tamanho_frota' => $request->tamanho_frota,
+            'user_id' => $request->user_id
         ])->save();
 
-        return redirect("/clientes");
+        return redirect("/frotas");
     }
 
     /**
