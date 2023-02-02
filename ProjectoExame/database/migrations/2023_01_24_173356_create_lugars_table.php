@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('n_lugar');
             $table->boolean('estado');
+            $table->boolean('vip');
+            $table->foreignId('veiculo_id')->nullable();
             $table->foreignId('zona_id')->index();
             $table->timestamps();
         });
