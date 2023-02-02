@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Frota;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FrotaController extends Controller
@@ -67,14 +68,12 @@ class FrotaController extends Controller
      * @param  int  $cc
      * @return \Illuminate\Http\Response
      */
-    public function edit($cc)
+    public function edit($id)
     {
-        $cliente = User::where('cc', $cc)->first();
-        $frotas = Frota::where('user_id', $cc);
+        $frota = Frota::where('user_id', $id);
         return view('cliente-edit',
             [
-                'cliente' => $cliente,
-                'frotas' => $frotas
+                'frota' => $frota
             ]);
     }
 
@@ -85,21 +84,17 @@ class FrotaController extends Controller
      * @param  int  $cc
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $cc)
+    public function update(Request $request, $id)
     {
         request()->validate([
-            'email' => 'required|email|unique:users,email',
-            'name' => 'required',
-            'cc' => 'required|max:10',
-            'password' => 'required|min:6'
+            'tamanho_frota' => 'required'
         ]);
 
-        $cliente = User::where('cc', $cc)->first();
-        $cliente->fill([
-            'name' => $request->name,
-            'email' => $request->email,
-            'cc' => $request->cc,
-            'Password' => Hash::make($request->Password)
+        $frota = Frota::where('id', $id)->first();
+
+        $frota->fill([
+            'user_id' => $request->user_id,
+            'tamanho_frota' => $request->tamanho_frota
         ])->save();
     }
 
@@ -109,10 +104,10 @@ class FrotaController extends Controller
      * @param  int  $cc
      * @return \Illuminate\Http\Response
      */
-    public function destroy($cc)
+    public function destroy($id)
     {
-        $customer = Customers::where('cc', $cc)->first();
-        $customer->delete();
-        return redirect("/customers");
+        $frota = Frota::where('id', $id)->first();
+        $frota->delete();
+        return redirect("/frotas");
     }
 }

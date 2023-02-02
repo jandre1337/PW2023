@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Zona;
 use Illuminate\Http\Request;
 
 class ZonaController extends Controller
@@ -13,7 +14,8 @@ class ZonaController extends Controller
      */
     public function index()
     {
-        //
+        return view('zona-list',
+            ['zonas' => Zona::all()]);
     }
 
     /**
@@ -23,7 +25,7 @@ class ZonaController extends Controller
      */
     public function create()
     {
-        //
+        return view('zona-new');
     }
 
     /**
@@ -34,7 +36,21 @@ class ZonaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'tipo_zona' => 'required',
+            'valor_zona' => 'required',
+            'piso_id' => 'required'
+        ]);
+
+        $zona = new Zona();
+
+        $zona->fill([
+            'tipo_zona' => $request->tipo_zona,
+            'valor_zona' => $request->valor_zona,
+            'piso_id' => $request->piso_id
+        ])->save();
+
+        return redirect("/zona-list");
     }
 
     /**
@@ -56,7 +72,10 @@ class ZonaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $zona = Zona::where('id', $id)->first();
+
+        return view('zona-edit',
+            ['zona' => $zona]);
     }
 
     /**
@@ -68,7 +87,21 @@ class ZonaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'tipo_zona' => 'required',
+            'valor_zona' => 'required',
+            'piso_id' => 'required'
+        ]);
+
+        $zona = Zona::where('id', $id)->first();
+
+        $zona->fill([
+            'tipo_zona' => $request->tipo_zona,
+            'valor_zona' => $request->valor_zona,
+            'piso_id' => $request->piso_id
+        ])->save();
+
+        return redirect("/zona-list");
     }
 
     /**
@@ -79,6 +112,8 @@ class ZonaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $zona = Zona::where('id', $id)->first();
+        $zona->delete();
+        return redirect("/zonas");
     }
 }

@@ -38,8 +38,9 @@
                 <input id="password" type="password" name="password" value="{{ old('password') }}"/>
             </div>
 
+
             <div>
-                <input type="submit" value="Add Cliente">
+                <input type="submit" value="Criar Cliente">
             </div>
 
         </form>

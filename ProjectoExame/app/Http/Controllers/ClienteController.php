@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ClienteController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
      */
@@ -119,8 +119,8 @@ class ClienteController extends Controller
      */
     public function destroy($cc)
     {
-        $customer = Customers::where('cc', $cc)->first();
-        $customer->delete();
-        return redirect("/customers");
+        $cliente = User::where('cc', $cc)->first();
+        $cliente->delete();
+        return redirect("/clientes");
     }
 }

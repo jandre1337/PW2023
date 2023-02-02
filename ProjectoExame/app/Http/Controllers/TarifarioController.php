@@ -71,7 +71,6 @@ class TarifarioController extends Controller
      */
     public function edit($id)
     {
-
         $tarifa = Tarifa::where('id', $id)->first();
 
         return view('tarifario-edit',

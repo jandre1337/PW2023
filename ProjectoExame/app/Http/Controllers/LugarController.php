@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lugar;
 use Illuminate\Http\Request;
 
 class LugarController extends Controller
@@ -34,7 +35,21 @@ class LugarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'n_lugar' => 'required',
+            'taxa_lugar' => 'required',
+            'zona_id' => 'required'
+        ]);
+
+        $lugar = new Lugar();
+
+        $lugar->fill([
+            'n_lugar' => $request->n_lugar,
+            'taxa_lugar' => $request->taxa_lugar,
+            'zona_id' => $request->zona_id
+        ])->save();
+
+        return redirect("/lugar-list");
     }
 
     /**
@@ -56,7 +71,10 @@ class LugarController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lugar = Lugar::where('id', $id)->first();
+
+        return view('lugar-edit',
+            ['lugar' => $lugar]);
     }
 
     /**
@@ -68,7 +86,21 @@ class LugarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'n_lugar' => 'required',
+            'taxa_lugar' => 'required',
+            'zona_id' => 'required'
+        ]);
+
+        $lugar = new Lugar();
+
+        $lugar->fill([
+            'n_lugar' => $request->n_lugar,
+            'taxa_lugar' => $request->taxa_lugar,
+            'zona_id' => $request->zona_id
+        ])->save();
+
+        return redirect("/lugar-list");
     }
 
     /**
@@ -79,6 +111,8 @@ class LugarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $lugar = Lugar::where('id', $id)->first();
+        $lugar->delete();
+        return redirect("/lugares");
     }
 }

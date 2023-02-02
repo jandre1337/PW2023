@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ZonaTarifa;
 use Illuminate\Http\Request;
 
 class ZonaTarifaController extends Controller
@@ -13,7 +14,8 @@ class ZonaTarifaController extends Controller
      */
     public function index()
     {
-        //
+        return view('zonatarifa-list',
+            ['zonatarifas' => ZonaTarifa::all()]);
     }
 
     /**
@@ -23,7 +25,7 @@ class ZonaTarifaController extends Controller
      */
     public function create()
     {
-        //
+        return view('zonatarifa-new');
     }
 
     /**
@@ -34,7 +36,27 @@ class ZonaTarifaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'zona_id' => 'required',
+            'tarifa_id' => 'required',
+            'data_entrada' => 'required',
+            'data_saida' => 'required',
+            'modalidade' => 'required',
+            'tamanho_frota' => 'required'
+        ]);
+
+        $zonatarifa = new ZonaTarifa();
+
+        $zonatarifa->fill([
+            'zona_id' => $request->zona_id,
+            'tarifa_id' => $request->tarifa_id,
+            'data_entrada' => $request->data_entrada,
+            'data_saida' => $request->data_saida,
+            'modalidade' => $request->modalidade,
+            'tamanho_frota' => $request->tamanho_frota
+        ])->save();
+
+        return redirect("/zonatarifa-list");
     }
 
     /**
@@ -56,7 +78,10 @@ class ZonaTarifaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $zonatarifa = ZonaTarifa::where('id', $id)->first();
+
+        return view('zonatarifa-edit',
+            ['zonatarifa' => $zonatarifa]);
     }
 
     /**
@@ -68,7 +93,27 @@ class ZonaTarifaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'zona_id' => 'required',
+            'tarifa_id' => 'required',
+            'data_entrada' => 'required',
+            'data_saida' => 'required',
+            'modalidade' => 'required',
+            'tamanho_frota' => 'required'
+        ]);
+
+        $zonatarifa = ZonaTarifa::where('id', $id)->first();
+
+        $zonatarifa->fill([
+            'zona_id' => $request->zona_id,
+            'tarifa_id' => $request->tarifa_id,
+            'data_entrada' => $request->data_entrada,
+            'data_saida' => $request->data_saida,
+            'modalidade' => $request->modalidade,
+            'tamanho_frota' => $request->tamanho_frota
+        ])->save();
+
+        return redirect("/zonatarifa-list");
     }
 
     /**
@@ -79,6 +124,8 @@ class ZonaTarifaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $zonatarifa = ZonaTarifa::where('id', $id)->first();
+        $zonatarifa->delete();
+        return redirect("/zonatarifas");
     }
 }

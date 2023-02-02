@@ -104,7 +104,7 @@ class ParqueController extends Controller
             'estado' => $request->estado
         ])->save();
 
-        return redirect("/parque");
+        return redirect("/parques");
     }
 
     /**
@@ -115,6 +115,8 @@ class ParqueController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $parque = Parque::where('id', $id)->first();
+        $parque->delete();
+        return redirect("/parques");
     }
 }

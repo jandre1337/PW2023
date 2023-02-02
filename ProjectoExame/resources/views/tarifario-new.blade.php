@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-    <div class="d-flex justify-content-center"> <h1>Nova ficha de cliente</h1> <br> </div>
+    <div class="d-flex justify-content-center"> <h1>Nova ficha de Tarifa</h1> <br> </div>
     <div class="col-12 col-md-6 col-lg-12 d-flex justify-content-between" style="padding-top:5%;padding-bottom:5%;background-color:#e0e0e0;">
 
 
@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <form action="/clientes/new" method="post">
+        <form action="/tarifarios/new" method="post">
 
             {{ csrf_field() }}
 
@@ -39,7 +39,7 @@
             </div>
 
             <div>
-                <input type="submit" value="Add Cliente">
+                <input type="submit" value="Add Tarifa">
             </div>
 
         </form>

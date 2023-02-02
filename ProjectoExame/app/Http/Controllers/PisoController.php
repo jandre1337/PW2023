@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Piso;
 use Illuminate\Http\Request;
 
 class PisoController extends Controller
@@ -13,7 +14,8 @@ class PisoController extends Controller
      */
     public function index()
     {
-        //
+        return view('piso-list',
+            ['pisos' => Piso::all()]);
     }
 
     /**
@@ -23,7 +25,7 @@ class PisoController extends Controller
      */
     public function create()
     {
-        //
+        return view('piso-new');
     }
 
     /**
@@ -34,7 +36,23 @@ class PisoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'n_piso' => 'required',
+            'estado' => 'required',
+            'qtdd_lugares' => 'required',
+            'parque_id' => 'required'
+        ]);
+
+        $piso = new Piso();
+
+        $piso->fill([
+            'n_piso' => $request->n_piso,
+            'estado' => $request->estado,
+            'qtdd_lugares' => $request->qtdd_lugares,
+            'parque_id' => $request->parque_id
+        ])->save();
+
+        return redirect("/tarifario-list");
     }
 
     /**
@@ -56,7 +74,10 @@ class PisoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $piso = Piso::where('id', $id)->first();
+
+        return view('piso-edit',
+            ['piso' => $piso]);
     }
 
     /**
@@ -68,7 +89,23 @@ class PisoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'n_piso' => 'required',
+            'estado' => 'required',
+            'qtdd_lugares' => 'required',
+            'parque_id' => 'required'
+        ]);
+
+        $piso = Piso::where('id', $id)->first();
+
+        $piso->fill([
+            'n_piso' => $request->n_piso,
+            'estado' => $request->estado,
+            'qtdd_lugares' => $request->qtdd_lugares,
+            'parque_id' => $request->parque_id
+        ])->save();
+
+        return redirect("/tarifario-list");
     }
 
     /**
@@ -79,6 +116,8 @@ class PisoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $piso = Piso::where('id', $id)->first();
+        $piso->delete();
+        return redirect("/pisos");
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Veiculo;
 use Illuminate\Http\Request;
 
 class VeiculoController extends Controller
@@ -13,7 +14,8 @@ class VeiculoController extends Controller
      */
     public function index()
     {
-        //
+        return view('veiculo-list',
+            ['veiculos' => Veiculo::all()]);
     }
 
     /**
@@ -23,7 +25,7 @@ class VeiculoController extends Controller
      */
     public function create()
     {
-        //
+        return view('veiculo-new');
     }
 
     /**
@@ -34,7 +36,27 @@ class VeiculoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'matricula' => 'required',
+            'marca' => 'required',
+            'modelo' => 'required',
+            'ano' => 'required',
+            'user_id' => 'required',
+            'frota_id' => 'required'
+        ]);
+
+        $veiculo = new Veiculo();
+
+        $veiculo->fill([
+            'matricula' => $request->matricula,
+            'marca' => $request->marca,
+            'modelo' => $request->modelo,
+            'ano' => $request->ano,
+            'user_id' => $request->user_id,
+            'frota_id' => $request->frota_id,
+        ])->save();
+
+        return redirect("/veiculos-list");
     }
 
     /**
@@ -56,7 +78,10 @@ class VeiculoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $veiculo = Veiculo::where('id', $id)->first();
+
+        return view('tarifario-edit',
+            ['veiculo' => $veiculo]);
     }
 
     /**
@@ -68,7 +93,27 @@ class VeiculoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'matricula' => 'required',
+            'marca' => 'required',
+            'modelo' => 'required',
+            'ano' => 'required',
+            'user_id' => 'required',
+            'frota_id' => 'required'
+        ]);
+
+        $veiculo = Veiculo::where('id', $id)->first();
+
+        $veiculo->fill([
+            'matricula' => $request->matricula,
+            'marca' => $request->marca,
+            'modelo' => $request->modelo,
+            'ano' => $request->ano,
+            'user_id' => $request->user_id,
+            'frota_id' => $request->frota_id,
+        ])->save();
+
+        return redirect("/veiculos-list");
     }
 
     /**
@@ -79,6 +124,8 @@ class VeiculoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $veiculo = Veiculo::where('id', $id)->first();
+        $veiculo->delete();
+        return redirect("/veiculos");
     }
 }

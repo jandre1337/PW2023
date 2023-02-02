@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('lugars', function (Blueprint $table) {
             $table->id();
             $table->integer('n_lugar');
-            $table->float('taxa_lugar');
+            $table->boolean('estado');
             $table->foreignId('zona_id')->index();
             $table->timestamps();
         });

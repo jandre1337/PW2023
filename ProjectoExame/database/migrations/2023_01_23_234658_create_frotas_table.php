@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('frotas', function (Blueprint $table) {
             $table->id();
+            $table->text('nome');
             $table->foreignId('user_id')->index();
             $table->integer('tamanho_frota');
             $table->timestamps();

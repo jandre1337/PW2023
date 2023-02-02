@@ -33,10 +33,10 @@
                 <td>{{ $tarifas->preco }}</td>
                 <td>{{ $tarifas->desconto }}</td>
                 <td>
-                    <a href="/clientes/{{$tarifas->cc}}" class="btn ">
+                    <a href="/tarifarios/{{$tarifas->id}}" class="btn ">
                         <i class="fa fa-edit fa-2x"></i>
                     </a>
-                    <a href="/clientes/{{$tarifas->cc}}/delete"  class="btn ">
+                    <a href="/tarifarios/{{$tarifas->id}}/delete"  class="btn ">
                         <i class="fa fa-trash fa-2x" ></i>
                     </a>
                 </td>
