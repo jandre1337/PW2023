@@ -10,7 +10,7 @@
                     <h2>Gerir <b>Tarifas</b></h2>
                 </div>
                 <div class="col-sm-3">
-                    <a href="/clientes/new" class="btn btn-success">
+                    <a href="/tarifarios/new" class="btn btn-success">
                         <i class="fa fa-plus-circle fa-2x"></i> <span style="font-weight: bold;">Nova Tarifa</span>
                     </a>
                 </div>

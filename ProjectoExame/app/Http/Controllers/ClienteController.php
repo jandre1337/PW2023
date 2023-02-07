@@ -52,7 +52,7 @@ class ClienteController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'cc' => $request->cc,
-            'Password' => Hash::make($request->Password)
+            'password' => Hash::make($request->Password)
         ])->save();
 
         return redirect("/clientes");

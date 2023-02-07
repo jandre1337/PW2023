@@ -9,6 +9,8 @@ class Piso extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['n_piso','estado','qtdd_lugares','parque_id'];
+
     public function parque()
     {
         return $this->belongsTo(Parque::class);

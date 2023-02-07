@@ -20,8 +20,8 @@
             {{ csrf_field() }}
 
             <div>
-                <label for="designation">Nome:</label>
-                <input id="designation" type="text" name="name" value="{{ old('name') }}">
+                <label for="nome">Nome:</label>
+                <input id="nome" type="text" name="nome" value="{{ old('nome') }}">
             </div>
 
             <div>

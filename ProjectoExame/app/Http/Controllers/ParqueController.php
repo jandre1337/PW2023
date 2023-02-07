@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lugar;
 use App\Models\Parque;
 use App\Models\Piso;
 use App\Models\User;
+use App\Models\Zona;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,8 +19,29 @@ class ParqueController extends Controller
      */
     public function index()
     {
+        $parques = Parque::all();
+        $lugares_livres = [];
+        foreach ($parques as $parque) {
+            $lugares_livres[$parque->id] = 0;
+            $pisos = Piso::where('parque_id', $parque->id)->get();
+            foreach ( $pisos as $piso){
+                $zonas = Zona::where('piso_id', $piso->id)->get();
+                foreach ( $zonas as $zona) {
+                    $lugares = Lugar::where('zona_id', $zona->id)->get();
+                    foreach ( $lugares as $lugar) {
+                        if ($lugar->estado == 0) {
+                            $lugares_livres[$parque->id] = $lugares_livres[$parque->id] + 1;
+                        }
+                    }
+                }
+            }
+        }
         return view('parque-list',
-            ['parques' => Parque::all()]);
+            [
+                'parques' => $parques,
+                'lugares_livres' => $lugares_livres
+            ]
+        );
     }
 
     /**
@@ -49,7 +72,7 @@ class ParqueController extends Controller
         $parque->fill([
             'nome' => $request->nome,
             'localizacao' => $request->localizacao,
-            'estado' => $request->estado?1:0
+            'estado' => $request->estado == "on",
         ])->save();
 
         return redirect("/parques");
@@ -76,9 +99,12 @@ class ParqueController extends Controller
     {
 
         $parque = Parque::where('id', $id)->first();
-
+        $pisos = Piso::where('parque_id', $id)->get();
         return view('parque-edit',
-            ['parque' => $parque]);
+            [
+                'parque' => $parque,
+                'pisos' => $pisos
+            ]);
     }
 
     /**
@@ -93,7 +119,6 @@ class ParqueController extends Controller
         request()->validate([
             'nome' => 'required',
             'localizacao' => 'required',
-            'estado' => 'required|max:1',
         ]);
 
         $parque = Parque::where('id', $id)->first();
@@ -101,7 +126,7 @@ class ParqueController extends Controller
         $parque->fill([
             'nome' => $request->nome,
             'localizacao' => $request->localizacao,
-            'estado' => $request->estado
+            'estado' => $request->estado == "on",
         ])->save();
 
         return redirect("/parques");

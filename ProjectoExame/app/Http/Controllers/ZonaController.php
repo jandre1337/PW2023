@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Piso;
 use App\Models\Zona;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,12 @@ class ZonaController extends Controller
      */
     public function create()
     {
-        return view('zona-new');
+
+        return view('zona-new',
+        [
+            'pisos' => Piso::all(),
+            'selectedPiso' => 0
+        ]);
     }
 
     /**
@@ -50,7 +56,7 @@ class ZonaController extends Controller
             'piso_id' => $request->piso_id
         ])->save();
 
-        return redirect("/zona-list");
+        return redirect("/zonas");
     }
 
     /**
@@ -73,9 +79,12 @@ class ZonaController extends Controller
     public function edit($id)
     {
         $zona = Zona::where('id', $id)->first();
-
         return view('zona-edit',
-            ['zona' => $zona]);
+            [
+                'zona' => $zona,
+                'pisos' => Piso::all(),
+                'selectedPiso' => $zona->piso_id,
+            ]);
     }
 
     /**
@@ -101,7 +110,7 @@ class ZonaController extends Controller
             'piso_id' => $request->piso_id
         ])->save();
 
-        return redirect("/zona-list");
+        return redirect("/zonas");
     }
 
     /**

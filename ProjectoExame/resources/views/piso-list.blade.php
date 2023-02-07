@@ -10,17 +10,16 @@
                     <h2>Gerir <b>Pisos</b></h2>
                 </div>
                 <div class="col-sm-3">
-                    <a href="/pisos/new" class="btn btn-success">
-                        <i class="fa fa-plus-circle fa-2x"></i> <span style="font-weight: bold;">Novo piso</span>
-                    </a>
+
                 </div>
             </div>
         </div>
         <table class="table table-striped table-hover">
             <thead>
             <tr>
-                <th>Nome</th>
-                <th>Localização</th>
+                <th>Parque</th>
+                <th>Nº Piso</th>
+                <th>Qtd de Lugares</th>
                 <th>Estado</th>
             </tr>
             </thead>
@@ -28,8 +27,9 @@
             @foreach ($pisos as $piso)
 
             <tr>
-                <td>{{ $piso->nome }}</td>
-                <td>{{ $piso->localizacao }}</td>
+                <td>{{ $piso->parque_id }}</td>
+                <td>{{ $piso->n_piso }}</td>
+                <td>{{ $piso->qtdd_lugares }}</td>
                 <td>{{ $piso->estado }}</td>
                 <td>
                     <a href="/pisos/{{$piso->id}}" class="btn ">

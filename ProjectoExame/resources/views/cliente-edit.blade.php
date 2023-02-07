@@ -36,7 +36,7 @@
                     <h2><b>Frotas</b></h2>
                 </div>
                 <div class="col-sm-12 ">
-                    <a href="/frotas/{{ $cliente->cc }}/new" class="btn btn-success float-right">
+                    <a href="/frotas/new" class="btn btn-success float-right">
                         <i class="fa fa-plus-circle fa-2x"></i> <span style="font-weight: bold;">Nova Frota</span>
                     </a>
                 </div>

@@ -7,11 +7,11 @@
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-9">
-                    <h2>Gerir <b>Parques</b></h2>
+                    <h2>Gerir <b>Zona</b></h2>
                 </div>
                 <div class="col-sm-3">
-                    <a href="/parques/new" class="btn btn-success">
-                        <i class="fa fa-plus-circle fa-2x"></i> <span style="font-weight: bold;">Novo parque</span>
+                    <a href="/zonas/new" class="btn btn-success">
+                        <i class="fa fa-plus-circle fa-2x"></i> <span style="font-weight: bold;">Nova Zona</span>
                     </a>
                 </div>
             </div>
@@ -19,25 +19,24 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr>
-                <th>Nome</th>
-                <th>Localização</th>
-                <th>Estado</th>
-                <th>Lugares Disponiveis</th>
+                <th>Tipo Zona</th>
+                <th>Piso</th>
+                <th>Valor Zona</th>
+                <th>Ações</th>
             </tr>
             </thead>
             <tbody><div class="container bg-secondary text-white" >
-            @foreach ($parques as $parque)
+            @foreach ($zonas as $zona)
 
             <tr>
-                <td>{{ $parque->nome }}</td>
-                <td>{{ $parque->localizacao }}</td>
-                <td>{{ $parque->estado }}</td>
-                <td>{{ $lugares_livres[$parque->id] }}</td>
+                <td>{{ $zona->tipo_zona }}</td>
+                <td>{{ $zona->piso_id }}</td>
+                <td>{{ $zona->valor_zona }}</td>
                 <td>
-                    <a href="/parques/{{$parque->id}}" class="btn ">
+                    <a href="/zonas/{{$zona->id}}" class="btn ">
                         <i class="fa fa-edit fa-2x"></i>
                     </a>
-                    <a href="/parques/{{$parque->id}}/delete"  class="btn ">
+                    <a href="/zonas/{{$zona->id}}/delete"  class="btn ">
                         <i class="fa fa-trash fa-2x" ></i>
                     </a>
                 </td>

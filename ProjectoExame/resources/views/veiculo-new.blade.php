@@ -15,9 +15,31 @@
             </div>
         @endif
 
-        <form action="/veiculo/new" method="post">
+        <form action="/veiculos/new" method="post">
 
             {{ csrf_field() }}
+
+            <div>
+                <label for="user_id">User:</label>
+                <select  name="user_id">
+                    @if ($users->count())
+                        @foreach($users as $user)
+                            <option value="{{ $user->id }}" {{ $selectedUser == $user->id ? 'selected="selected"' : '' }}>{{ $user->name }}</option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
+
+            <div>
+                <label for="frota_id">Frota:</label>
+                <select  name="frota_id">
+                    @if ($frotas->count())
+                        @foreach($frotas as $frota)
+                            <option value="{{ $frota->id }}" {{ $selectedFrota == $frota->id ? 'selected="selected"' : '' }}>{{ $frota->nome }}</option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
 
             <div>
                 <label for="matricula">Matricula:</label>
@@ -37,6 +59,8 @@
                 <label for="ano">Ano:</label>
                 <input id="ano" type="text" name="ano" value="{{ old('ano') }}"/>
             </div>
+
+
 
             <div>
                 <input type="submit" value="Adicionar Carro">

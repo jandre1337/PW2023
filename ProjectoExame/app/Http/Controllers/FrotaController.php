@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Frota;
 use App\Models\User;
+use App\Models\Veiculo;
 use Illuminate\Http\Request;
 
 class FrotaController extends Controller
@@ -14,9 +15,17 @@ class FrotaController extends Controller
      */
     public function index()
     {
-
+        $frotas =  Frota::all();
+        $tamanho_frota = [];
+        foreach ($frotas as $frota) {
+            $veiculos = Veiculo::where('frota_id', $frota->id)->get();
+            $tamanho_frota[$frota->id] = $veiculos->count();
+        }
         return view('frota-list',
-            ['frotas' => Frota::all()]);
+            [
+                'frotas' =>$frotas,
+                'tamanho_frota' => $tamanho_frota
+            ]);
     }
 
     /**
@@ -38,14 +47,15 @@ class FrotaController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'tamanho_frota' => 'required'
+            'nome' => 'required'
         ]);
 
         $frota = new Frota();
 
         $frota->fill([
-            'tamanho_frota' => $request->tamanho_frota,
-            'user_id' => $request->user_id
+            'nome' => $request->nome,
+            'tamanho_frota' => 0,
+            'user_id' => $request->user()->getKey()
         ])->save();
 
         return redirect("/frotas");
@@ -70,10 +80,12 @@ class FrotaController extends Controller
      */
     public function edit($id)
     {
-        $frota = Frota::where('user_id', $id);
-        return view('cliente-edit',
+        $frota = Frota::where('id', $id)->first();
+        $veiculos = Veiculo::where('frota_id', $id)->get();
+        return view('frota-edit',
             [
-                'frota' => $frota
+                'frota' => $frota,
+                'veiculos' => $veiculos
             ]);
     }
 
@@ -87,6 +99,7 @@ class FrotaController extends Controller
     public function update(Request $request, $id)
     {
         request()->validate([
+            'nome' => 'required',
             'tamanho_frota' => 'required'
         ]);
 

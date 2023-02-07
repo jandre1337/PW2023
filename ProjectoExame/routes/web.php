@@ -1,10 +1,16 @@
 <?php
 
+use App\Http\Controllers\BilheteController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrotaController;
 use App\Http\Controllers\ParqueController;
+use App\Http\Controllers\PisoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TarifarioController;
+use App\Http\Controllers\LugarController;
+use App\Http\Controllers\VeiculoController;
+use App\Http\Controllers\ZonaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +28,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController ::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -55,16 +59,41 @@ Route::middleware('auth')->group(function () {
     Route::get("frotas", [FrotaController::class, 'index']);
     Route::get("frotas/new", [FrotaController::class, 'create']);
     Route::post("frotas/new", [FrotaController::class, 'store']);
-    Route::get("frotas/{cc}", [FrotaController::class, 'edit']);
-    Route::put("frotas/{cc}", [FrotaController::class, 'update']);
-    Route::get("frotas/{cc}/delete", [FrotaController::class, 'destroy']);
+    Route::get("frotas/{id}", [FrotaController::class, 'edit']);
+    Route::put("frotas/{id}", [FrotaController::class, 'update']);
+    Route::get("frotas/{id}/delete", [FrotaController::class, 'destroy']);
 
-    Route::get("pisos", [FrotaController::class, 'index']);
-    Route::get("pisos/new", [FrotaController::class, 'create']);
-    Route::post("pisos/new", [FrotaController::class, 'store']);
-    Route::get("pisos/{cc}", [FrotaController::class, 'edit']);
-    Route::put("pisos/{cc}", [FrotaController::class, 'update']);
-    Route::get("pisos/{cc}/delete", [FrotaController::class, 'destroy']);
+    Route::get("pisos", [PisoController::class, 'index']);
+    Route::get("pisos/{id}/new", [PisoController::class, 'create']);
+    Route::post("pisos/{id}/new", [PisoController::class, 'store']);
+    Route::get("pisos/{id}", [PisoController::class, 'edit']);
+    Route::put("pisos/{id}", [PisoController::class, 'update']);
+    Route::get("pisos/{id}/delete", [PisoController::class, 'destroy']);
+
+    Route::get("lugar", [LugarController::class, 'index']);
+    Route::get("lugar/{id}/new", [LugarController::class, 'create']);
+    Route::post("lugar/{id}/new", [LugarController::class, 'store']);
+    Route::get("lugar/{id}", [LugarController::class, 'edit']);
+    Route::put("lugar/{id}", [LugarController::class, 'update']);
+    Route::get("lugar/{id}/delete", [LugarController::class, 'destroy']);
+
+    Route::get("veiculos", [VeiculoController::class, 'index']);
+    Route::get("veiculos/new", [VeiculoController::class, 'create']);
+    Route::post("veiculos/new", [VeiculoController::class, 'store']);
+    Route::get("veiculos/{id}", [VeiculoController::class, 'edit']);
+    Route::put("veiculos/{id}", [VeiculoController::class, 'update']);
+    Route::get("veiculos/{id}/delete", [VeiculoController::class, 'destroy']);
+
+
+    Route::get("zonas", [ZonaController::class, 'index']);
+    Route::get("zonas/new", [ZonaController::class, 'create']);
+    Route::post("zonas/new", [ZonaController::class, 'store']);
+    Route::get("zonas/{id}", [ZonaController::class, 'edit']);
+    Route::put("zonas/{id}", [ZonaController::class, 'update']);
+    Route::get("zonas/{id}/delete", [ZonaController::class, 'destroy']);
+
+    Route::get("bilhete", [BilheteController::class, 'create']);
+    Route::post("bilhete", [BilheteController::class, 'store']);
 });
 
 require __DIR__.'/auth.php';

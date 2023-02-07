@@ -8,9 +8,11 @@
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
         "jhumanj/laravel-model-stats": "^0.4.0",
+        "laravel-views/laravel-views": "^2.4",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "livewire/livewire": "^2.11"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -37,7 +39,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan vendor:publish --force --tag=livewire:assets --ansi"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
@@ -48,6 +51,7 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+
     },
     "extra": {
         "laravel": {

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Parque;
 use App\Models\Piso;
+use App\Models\Zona;
 use Illuminate\Http\Request;
 
 class PisoController extends Controller
@@ -23,9 +25,10 @@ class PisoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('piso-new');
+        return view('piso-new',
+            ['id' => $id]);
     }
 
     /**
@@ -34,25 +37,23 @@ class PisoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,  $id)
     {
         request()->validate([
             'n_piso' => 'required',
-            'estado' => 'required',
-            'qtdd_lugares' => 'required',
-            'parque_id' => 'required'
+            'lugares' => 'required'
         ]);
 
         $piso = new Piso();
 
         $piso->fill([
             'n_piso' => $request->n_piso,
-            'estado' => $request->estado,
-            'qtdd_lugares' => $request->qtdd_lugares,
-            'parque_id' => $request->parque_id
+            'estado' => $request->estado == "on",
+            'qtdd_lugares' => $request->lugares,
+            'parque_id' => $id
         ])->save();
 
-        return redirect("/tarifario-list");
+        return redirect("/pisos");
     }
 
     /**
@@ -77,7 +78,12 @@ class PisoController extends Controller
         $piso = Piso::where('id', $id)->first();
 
         return view('piso-edit',
-            ['piso' => $piso]);
+            [
+                'piso' => $piso,
+                'zonas' => Zona::where('piso_id', $id)->get(),
+                'parques' => Parque::all(),
+                'selectedParque' => $piso->parque_id
+            ]);
     }
 
     /**
@@ -91,7 +97,6 @@ class PisoController extends Controller
     {
         request()->validate([
             'n_piso' => 'required',
-            'estado' => 'required',
             'qtdd_lugares' => 'required',
             'parque_id' => 'required'
         ]);
@@ -100,12 +105,12 @@ class PisoController extends Controller
 
         $piso->fill([
             'n_piso' => $request->n_piso,
-            'estado' => $request->estado,
+            'estado' => $request->estado == "on",
             'qtdd_lugares' => $request->qtdd_lugares,
             'parque_id' => $request->parque_id
         ])->save();
 
-        return redirect("/tarifario-list");
+        return redirect('/pisos');
     }
 
     /**

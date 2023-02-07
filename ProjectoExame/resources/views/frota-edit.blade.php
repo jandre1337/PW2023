@@ -14,16 +14,6 @@
             </div>
 
             <div>
-                <label for="id">NIF:</label>
-                <input id="id" type="number" name="id" value="{{ $frota->id }}"/>
-            </div>
-
-            <div>
-                <label for="email">Email:</label>
-                <input id="email" type="text" name="email" value="{{ $frota->email}}"/>
-            </div>
-
-            <div>
                 <input type="submit" value="Edit frota">
             </div>
 
@@ -33,27 +23,38 @@
         <div class="row" style="padding-top:5%;">
             <div class="col-12 col-sm-6">
                 <div class="col-sm-9">
-                    <h2><b>Frotas</b></h2>
+                    <h2><b>Veiculos</b></h2>
                 </div>
                 <div class="col-sm-12 ">
-                    <a href="/frotas/{{ $frota->id }}/new" class="btn btn-success float-right">
-                        <i class="fa fa-plus-circle fa-2x"></i> <span style="font-weight: bold;">Nova Frota</span>
+                    <a href="/veiculos/new" class="btn btn-success float-right">
+                        <i class="fa fa-plus-circle fa-2x"></i> <span style="font-weight: bold;">Novo Veiculo</span>
                     </a>
                 </div>
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th class="text-center">Nº de frota</th>
-                        <th class="text-center align-middle">Proprietário</th>
-                        <th class="text-center">Quantidade de veiculos</th>
+                        <th class="text-center">Matricula</th>
+                        <th class="text-center ">Marca</th>
+                        <th class="text-center ">Modelo</th>
+                        <th class="text-center ">Ano</th>
+                        <th class="text-center ">Ações</th>
                     </tr>
                     </thead>
                     <tbody><div class="container bg-secondary text-white" >
-                    @foreach ($frotas as $frota)
+                    @foreach ($veiculos as $veiculo)
                         <tr>
-                            <td>{{$frota->id }} </td>
-                            <td>{{$frota->user()}}</td>
-                            <td>{{$frota->tamanho_frota}}</td>
+                            <td>{{$veiculo->matricula }} </td>
+                            <td>{{$veiculo->marca }} </td>
+                            <td>{{$veiculo->modelo }} </td>
+                            <td>{{$veiculo->ano }} </td>
+                            <td>
+                                <a href="/veiculos/{{$veiculo->id}}" class="btn ">
+                                    <i class="fa fa-edit fa-2x"></i>
+                                </a>
+                                <a href="/veiculos/{{$veiculo->id}}/delete"  class="btn ">
+                                    <i class="fa fa-trash fa-2x" ></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                     </div></table>

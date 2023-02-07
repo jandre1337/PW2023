@@ -18,8 +18,21 @@
             <a class="nav-link font-weight-bold" style="color:black"; href="/frotas">Frotas</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link font-weight-bold" style="color:black"; href="/lugares">Lugares</a>
+            <a class="nav-link font-weight-bold" style="color:black"; href="/pisos">Pisos</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" style="color:black"; href="/bilhete">Testes</a>
+        </li>
+
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+
+            <x-dropdown-link :href="route('logout')"
+                             onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                {{ __('Log Out') }}
+            </x-dropdown-link>
+        </form>
     </ul>
 
 

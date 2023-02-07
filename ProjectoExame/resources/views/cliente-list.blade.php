@@ -1,6 +1,11 @@
 @extends('master')
 
+@section('styles')
+    @laravelViewsStyles(laravel-views)
+@endsection
+
 @section('content')
+
     <div class="col-12 col-md-6 col-lg-12" style="padding-top:5%;padding-bottom:5%;">
 <div class="container">
     <div class="table-wrapper">
@@ -48,6 +53,9 @@
         </table>
 
     </div>
+
 </div>
-    </div>
+</div>
+
+    @livewire('users-grid-view')
 @endsection

@@ -15,18 +15,18 @@
             </div>
         @endif
 
-        <form action="/pisos/new" method="post">
+        <form action="/pisos/{{$id}}/new" method="post">
 
             {{ csrf_field() }}
 
             <div>
-                <label for="nome">Nome do piso:</label>
-                <input id="nome" type="text" name="nome" value="{{ old('nome') }}">
+                <label for="n_piso">Andar:</label>
+                <input id="n_piso" type="number" name="n_piso" value="{{ old('n_piso') }}">
             </div>
 
             <div>
-                <label for="localizacao">Localização:</label>
-                <input id="localizacao" type="text" name="localizacao" value="{{ old('localizacao') }}"/>
+                <label for="lugares">Quantidade de Lugares:</label>
+                <input id="lugares" type="number" name="lugares" value="{{ old('lugares') }}"/>
             </div>
 
             <div>

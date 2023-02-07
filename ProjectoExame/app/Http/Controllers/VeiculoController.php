@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Frota;
+use App\Models\User;
 use App\Models\Veiculo;
 use Illuminate\Http\Request;
 
@@ -14,8 +16,11 @@ class VeiculoController extends Controller
      */
     public function index()
     {
+
         return view('veiculo-list',
-            ['veiculos' => Veiculo::all()]);
+            [
+                'veiculos' => Veiculo::all()
+        ]);
     }
 
     /**
@@ -23,9 +28,14 @@ class VeiculoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('veiculo-new');
+        return view('veiculo-new',[
+            'users' => User::all(),
+            'frotas' => Frota::all(),
+            'selectedFrota' => 0,
+            'selectedUser' => $request->user()->getKey()
+        ]);
     }
 
     /**
@@ -56,7 +66,7 @@ class VeiculoController extends Controller
             'frota_id' => $request->frota_id,
         ])->save();
 
-        return redirect("/veiculos-list");
+        return redirect("/veiculos");
     }
 
     /**
@@ -79,9 +89,14 @@ class VeiculoController extends Controller
     public function edit($id)
     {
         $veiculo = Veiculo::where('id', $id)->first();
-
-        return view('tarifario-edit',
-            ['veiculo' => $veiculo]);
+        return view('veiculo-edit',
+            [
+                'veiculo' =>  $veiculo,
+                'users' => User::all(),
+                'frotas' => Frota::all(),
+                'selectedFrota' => $veiculo->frota_id,
+                'selectedUser' => $veiculo->user_id
+            ]);
     }
 
     /**
@@ -113,7 +128,7 @@ class VeiculoController extends Controller
             'frota_id' => $request->frota_id,
         ])->save();
 
-        return redirect("/veiculos-list");
+        return redirect("/veiculos");
     }
 
     /**

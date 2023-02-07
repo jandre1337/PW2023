@@ -25,18 +25,17 @@
                 </tr>
                 </thead>
                 <tbody><div class="container bg-secondary text-white" >
-                    @foreach ($veiculo as $veiculos)
-
+                    @foreach ($veiculos as $veiculo)
                         <tr>
-                            <td>{{ $veiculos->matricula }}</td>
-                            <td>{{ $veiculos->marca }}</td>
-                            <td>{{ $veiculos->modelo }}</td>
-                            <td>{{ $veiculos->ano }}</td>
+                            <td>{{ $veiculo->matricula }}</td>
+                            <td>{{ $veiculo->marca }}</td>
+                            <td>{{ $veiculo->modelo }}</td>
+                            <td>{{ $veiculo->ano }}</td>
                             <td>
-                                <a href="/clientes/{{$veiculos->cc}}" class="btn ">
+                                <a href="/veiculos/{{$veiculo->id}}" class="btn ">
                                     <i class="fa fa-edit fa-2x"></i>
                                 </a>
-                                <a href="/clientes/{{$veiculos->cc}}/delete"  class="btn ">
+                                <a href="/veiculos/{{$veiculo->id}}/delete"  class="btn ">
                                     <i class="fa fa-trash fa-2x" ></i>
                                 </a>
                             </td>
