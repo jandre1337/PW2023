@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lugar;
 use App\Models\Piso;
 use App\Models\Zona;
 use Illuminate\Http\Request;
@@ -55,6 +56,16 @@ class ZonaController extends Controller
             'valor_zona' => $request->valor_zona,
             'piso_id' => $request->piso_id
         ])->save();
+
+        for ($n_lugar = 1; $n_lugar <= 50; $n_lugar++) {
+            $lugar = new Lugar();
+            $lugar->fill([
+                'n_lugar' => $n_lugar,
+                'estado' => 0,
+                'vip' => 0,
+                'zona_id' => $zona->id
+            ])->save();
+        }
 
         return redirect("/zonas");
     }

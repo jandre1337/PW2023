@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <form action="/zona/new" method="post">
+        <form action="/zonas/new" method="post">
 
             {{ csrf_field() }}
 
@@ -29,7 +29,7 @@
                 <select  name="piso_id">
                     @if ($pisos->count())
                         @foreach($pisos as $piso)
-                            <option value="{{ $piso->id }}" {{ $selectedPiso == $piso->id ? 'selected="selected"' : '' }}>{{ $piso->n_piso }}</option>
+                            <option value="{{ $piso->id }}" {{ $selectedPiso == $piso->id ? 'selected="selected"' : '' }}>Parque: {{$piso->parque->nome}} -> Piso nº:{{ $piso->n_piso }}</option>
                         @endforeach
                     @endif
                 </select>
@@ -37,7 +37,7 @@
 
             <div>
                 <label for="valor_zona">Valor Zona:</label>
-                <input id="valor_zona" type="number" name="valor_zona" value="{{ old('valor_zona') }}"/>
+                <input id="valor_zona" type="currency" name="valor_zona" value="{{ old('valor_zona') }}"/>
             </div>
 
             <div>

@@ -9,6 +9,8 @@ class Bilhete extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['data_entrada','data_saida','zona_id','veiculo_id'];
+
     public function veiculo()
     {
         return $this->belongsTo(Veiculo::class);

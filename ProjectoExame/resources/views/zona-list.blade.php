@@ -30,7 +30,7 @@
 
             <tr>
                 <td>{{ $zona->tipo_zona }}</td>
-                <td>{{ $zona->piso_id }}</td>
+                <td>{{ $zona->piso->n_piso }}</td>
                 <td>{{ $zona->valor_zona }}</td>
                 <td>
                     <a href="/zonas/{{$zona->id}}" class="btn ">

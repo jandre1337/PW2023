@@ -9,6 +9,8 @@ class Zona extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['tipo_zona','valor_zona','modelo','piso_id'];
+
     public function piso()
     {
         return $this->belongsTo(Piso::class);

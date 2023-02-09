@@ -55,20 +55,27 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>Piso ID</th>
-                        <th>Nº Piso</th>
-                        <th>Estado</th>
-                        <th>Quantidade Lugares</th>
+                        <th>Piso </th>
+                        <th>Tipo </th>
+                        <th>Valor </th>
+                        <th>Ações </th>
                     </tr>
                     </thead>
                     <tbody><div class="container bg-secondary text-white" >
                     @foreach ($zonas as $zona)
 
                         <tr>
-                            <td>{{$zona->id}}</td>
-                            <td>{{$zona->n_piso}}</td>
-                            <td>{{$zona->estado}}</td>
-                            <td>{{$zona->qtdd_lugares}}</td>
+                            <td>{{$zona->piso_id}}</td>
+                            <td>{{$zona->tipo_zona}}</td>
+                            <td>{{$zona->valor_zona}}</td>
+                            <td>
+                                <a href="/zonas/{{$zona->id}}" class="btn ">
+                                    <i class="fa fa-edit fa-2x"></i>
+                                </a>
+                                <a href="/zonas/{{$zona->id}}/delete"  class="btn ">
+                                    <i class="fa fa-trash fa-2x" ></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                     </div></table>

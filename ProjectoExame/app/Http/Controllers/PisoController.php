@@ -80,7 +80,7 @@ class PisoController extends Controller
         return view('piso-edit',
             [
                 'piso' => $piso,
-                'zonas' => Zona::where('piso_id', $id)->get(),
+                'zonas' => $piso->zonas,
                 'parques' => Parque::all(),
                 'selectedParque' => $piso->parque_id
             ]);
