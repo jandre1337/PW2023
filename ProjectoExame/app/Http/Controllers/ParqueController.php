@@ -23,11 +23,8 @@ class ParqueController extends Controller
         $lugares_livres = [];
         foreach ($parques as $parque) {
             $lugares_livres[$parque->id] = 0;
-            //$pisos = Piso::where('parque_id', $parque->id)->get();
             foreach ( $parque->pisos as $piso){
-                //$zonas = Zona::where('piso_id', $piso->id)->get();
                 foreach ( $piso->zonas as $zona) {
-                    //$lugares = Lugar::where('zona_id', $zona->id)->get();
                     foreach ( $zona->lugares as $lugar) {
                         if ($lugar->estado == 0) {
                             $lugares_livres[$parque->id] = $lugares_livres[$parque->id] + 1;

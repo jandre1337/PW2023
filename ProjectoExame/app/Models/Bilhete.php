@@ -9,7 +9,7 @@ class Bilhete extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['data_entrada','data_saida','zona_id','veiculo_id'];
+    protected $fillable = ['matricula','data_entrada','data_saida','zona_id','veiculo_id'];
 
     public function veiculo()
     {

@@ -19,4 +19,8 @@ class Zona extends Model
     {
         return $this->hasMany(Lugar::class);
     }
+    public function bilhetes()
+    {
+        return $this->hasMany(Bilhete::class);
+    }
 }

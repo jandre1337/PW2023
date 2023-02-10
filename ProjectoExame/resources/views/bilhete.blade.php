@@ -25,19 +25,19 @@
     </div>
     <div>
         <h1> Saida de Veiculo</h1>
-        <form action="/action_page.php">
-            <p> Preço a pagar</p>
+        <form action="/bilhete/pagar" method="get">
             <div>
                 <label for="bilhete_id">Bilhete:</label>
                 <select  name="bilhete_id">
                     @if ($bilhetes->count())
                         @foreach($bilhetes as $bilhete)
                             @if ($bilhete->data_saida == null)
-                                <option value="{{ $bilhete->id }}">Nº: {{ $bilhete->id }} Veiculo:{{ $bilhete->veiculo->matricula }} </option>
+                                <option value="{{ $bilhete->id }}">Nº: {{ $bilhete->id }} Veiculo:{{ $bilhete->veiculo != null?$bilhete->veiculo->matricula:$bilhete->matricula}} </option>
                             @endif
                         @endforeach
                     @endif
                 </select>
+                <button type="submit">Pagar Bilhete</button>
             </div>
         </form>
     </div>

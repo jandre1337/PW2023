@@ -39,11 +39,37 @@ class BilheteController extends Controller
         $bilhete = new Bilhete();
 
         $bilhete->fill([
-            'veiculo_id' => $veiculo->id,
             'zona_id' => $request->zona_id,
-            'data_entrada' => Carbon::now()
+            'matricula' => $request->matricula,
+            'data_entrada' => Carbon::now(),
+            'veiculo_id' => $veiculo != null? $veiculo->id : null
         ])->save();
 
         return redirect("/bilhete");
+    }
+
+    public function edit(Request $request)
+    {
+        $bilhete = Bilhete::where('id', $request->bilhete_id)->first();
+        $diff_date = abs(strtotime($bilhete->data_entrada) - strtotime(Carbon::now()));
+        $bilhete->data_saida = Carbon::now();
+        $bilhete->save();
+        $years = floor($diff_date / (365*60*60*24));
+        $months = floor(($diff_date - $years * 365*60*60*24) / (30*60*60*24));
+        $days = floor(($diff_date - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+        $hours   = ceil(($diff_date - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24)/ (60*60));
+
+        $preco_a_pagar = $bilhete->zona->valor_zona * $hours;
+        return view('bilhete-pagar',
+            [
+                'bilhete'=> $bilhete,
+                'hours'=> $hours,
+                'preco_a_pagar'=> $preco_a_pagar,
+            ]);
+    }
+
+    public function update(Request $request)
+    {
+
     }
 }
