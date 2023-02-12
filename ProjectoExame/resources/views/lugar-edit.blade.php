@@ -8,9 +8,24 @@
         <form action="{{ $lugar->id  }}" method="POST">
             @method('PUT')
             {{ csrf_field() }}
+
             <div>
-                <label for="nome">Nome do lugar:</label>
-                <input id="nome" type="text" name="nome" value="{{ $lugar->nome }}">
+                <label>Nº do lugar: {{ $lugar->n_lugar }}</label>s
+            </div>
+
+            <div>
+                <label>Zona: {{ $lugar->zona->tipo_zona }}</label>
+            </div>
+
+            <div>
+                <label for="veiculo_id">Veiculo:</label>
+                <select  name="veiculo_id">
+                    @if ($veiculos->count())
+                        @foreach($veiculos as $veiculo)
+                            <option value="{{ $veiculo->id }}" }}>{{ $veiculo->matricula }}</option>
+                        @endforeach
+                    @endif
+                </select>
             </div>
 
             <div>
@@ -20,7 +35,12 @@
 
             <div>
                 <label for="estado">Estado:</label>
-                <input id="estado" type="checkbox" name="estado" value="{{ $lugar->estado == 1 }}"/>
+                <input id="estado" type="checkbox" name="estado" value="{{ $lugar->estado}}"/>
+            </div>
+
+            <div>
+                <label for="vip">VIP:</label>
+                <input id="vip" type="checkbox" name="vip" value="{{ $lugar->vip}}"/>
             </div>
 
             <div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ParqueApiController;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Models\Veiculo;
@@ -21,18 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::get('/api/users', function (Request $request) {
-    $data = new UserResource(User::all());
-    return response()->json($data);
+Route::prefix('/parques')->group(function () {
+    Route::get('/', [ParqueApiController::class, 'index']);
+    Route::post('/', [ParqueApiController::class, 'store']);
+    Route::get('/{id}', [ParqueApiController::class, 'show']);
+    Route::put('/{id}', [ParqueApiController::class, 'update']);
+    Route::delete('/{id}', [ParqueApiController::class, 'delete']);
 });
 
-Route::get('/api/veiculos', function (Request $request) {
-    $data = Veiculo::query()->with(["frotas","users"])->get();
-    return response()->json($data);
-});
-Route::get('/api/park', function (Request $request) {
-    $data = Floor::query()->with("zones.spots")->get();
 
-    return response()->json($data);
-});

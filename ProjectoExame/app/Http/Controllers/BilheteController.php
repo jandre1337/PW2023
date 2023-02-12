@@ -38,11 +38,19 @@ class BilheteController extends Controller
 
         $bilhete = new Bilhete();
 
+        $lugares_disponiveis = Lugar::where('veiculo_id',null)->Where('zona_id',$request->zona_id)->get();
+        $lugar = $lugares_disponiveis[rand(0,$lugares_disponiveis->count())];
+        $lugar->fill([
+            'veiculo_id' => $veiculo != null? $veiculo->id : null,
+            'estado' =>1,
+        ])->save();
+
         $bilhete->fill([
             'zona_id' => $request->zona_id,
             'matricula' => $request->matricula,
             'data_entrada' => Carbon::now(),
-            'veiculo_id' => $veiculo != null? $veiculo->id : null
+            'veiculo_id' => $veiculo != null? $veiculo->id : null,
+            'lugar_id' => $lugar->id
         ])->save();
 
         return redirect("/bilhete");
@@ -54,6 +62,7 @@ class BilheteController extends Controller
         $diff_date = abs(strtotime($bilhete->data_entrada) - strtotime(Carbon::now()));
         $bilhete->data_saida = Carbon::now();
         $bilhete->save();
+
         $years = floor($diff_date / (365*60*60*24));
         $months = floor(($diff_date - $years * 365*60*60*24) / (30*60*60*24));
         $days = floor(($diff_date - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
@@ -68,8 +77,13 @@ class BilheteController extends Controller
             ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
-
+        $bilhete = Bilhete::where('id', $id)->first();
+        $lugar = Lugar::where('id', $bilhete->lugar_id)->first();
+        $lugar->estado = 0;
+        $lugar->veiculo_id = null;
+        $lugar->save();
+        return redirect("/bilhete");
     }
 }

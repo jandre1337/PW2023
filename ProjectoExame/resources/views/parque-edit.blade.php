@@ -49,7 +49,7 @@
                         <th>Ações</th>
                     </tr>
                     </thead>
-                    <tbody><div class="container bg-secondary text-white" >
+                    <tbody>< class="container bg-secondary text-white" >
                         @foreach ($pisos as $piso)
 
                             <tr>
@@ -65,7 +65,7 @@
                                     </a>
                                 </td>
                             </tr>
-                        @endforeach </div>
+                        @endforeach
                     </div></table>
             </div>
 

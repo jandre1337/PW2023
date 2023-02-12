@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Frota;
 use App\Models\Lugar;
+use App\Models\Veiculo;
 use Illuminate\Http\Request;
 
 class LugarController extends Controller
@@ -36,17 +38,17 @@ class LugarController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'n_lugar' => 'required',
-            'taxa_lugar' => 'required',
-            'zona_id' => 'required'
+            'n_lugar' => 'required'
         ]);
 
         $lugar = new Lugar();
 
         $lugar->fill([
             'n_lugar' => $request->n_lugar,
-            'taxa_lugar' => $request->taxa_lugar,
-            'zona_id' => $request->zona_id
+            'estado' => $request->estado == "on",
+            'vip' => $request->vip == "on",
+            'veiculo_id' => $request->veiculo_id,
+            'frota_id' => $request->frota_id
         ])->save();
 
         return redirect("/lugar-list");
@@ -72,9 +74,16 @@ class LugarController extends Controller
     public function edit($id)
     {
         $lugar = Lugar::where('id', $id)->first();
+        $frotas = Frota::all();
+        $veiculos = Veiculo::all();
 
         return view('lugar-edit',
-            ['lugar' => $lugar]);
+            [
+                'lugar' => $lugar,
+                'frotas' => $frotas,
+                'veiculos' => $veiculos,
+
+            ]);
     }
 
     /**
@@ -86,21 +95,17 @@ class LugarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        request()->validate([
-            'n_lugar' => 'required',
-            'taxa_lugar' => 'required',
-            'zona_id' => 'required'
-        ]);
 
-        $lugar = new Lugar();
+        $lugar = Lugar::where('id', $id)->first();
 
         $lugar->fill([
-            'n_lugar' => $request->n_lugar,
-            'taxa_lugar' => $request->taxa_lugar,
-            'zona_id' => $request->zona_id
+            'estado' => $request->estado != null,
+            'vip' => $request->vip != null,
+            'veiculo_id' => $request->veiculo_id,
+            'frota_id' => $request->frota_id
         ])->save();
 
-        return redirect("/lugar-list");
+        return redirect("/zonas/".$lugar->zona_id);
     }
 
     /**

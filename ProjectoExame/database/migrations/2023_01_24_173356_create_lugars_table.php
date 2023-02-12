@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('vip');
             $table->foreignId('veiculo_id')->nullable();
             $table->foreignId('zona_id')->index();
+            $table->foreignId('frota_id')->nullable();
             $table->timestamps();
         });
     }

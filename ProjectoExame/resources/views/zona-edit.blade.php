@@ -42,7 +42,10 @@
                 <div class="row">
                 @foreach ($zona->lugares as $lugar)
                     <div class="col-2" style="text-align: center;margin:2px;padding: 30px;background-color: {{ $lugar->estado ? 'green' : 'grey' }}  ;">
-                        {{$lugar->n_lugar }}
+                        <a class="text-light" href="/lugar/{{$lugar->id}}">
+                            <div>{{$lugar->n_lugar }}{{ $lugar->vip ? '(VIP)' : '' }}</div>
+                            <div>{{$lugar->veiculo != null ? $lugar->veiculo->matricula : '' }}</div>
+                        </a>
                     </div>
                 @endforeach
                 </div>

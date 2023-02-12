@@ -5,7 +5,7 @@
 @section('content')
     <div>
         <h1> Pagamento Bilhete nº{{$bilhete->id}} </h1>
-        <form action="/bilhete/pagar" method="post">
+        <form action="/bilhete/pagar/{{$bilhete->id}}" method="post">
             @method('PUT')
             {{ csrf_field() }}
             <div>

@@ -95,7 +95,7 @@ Route::middleware('auth')->group(function () {
     Route::get("bilhete", [BilheteController::class, 'create']);
     Route::post("bilhete", [BilheteController::class, 'store']);
     Route::get("bilhete/pagar", [BilheteController::class, 'edit']);
-    Route::put("bilhete/pagar", [BilheteController::class, 'update']);
+    Route::put("bilhete/pagar/{id}", [BilheteController::class, 'update']);
 });
 
 require __DIR__.'/auth.php';

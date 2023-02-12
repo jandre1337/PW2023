@@ -19,6 +19,7 @@ return new class extends Migration
             $table->dateTime('data_saida');
             $table->foreignId('veiculo_id')->index();
             $table->foreignId('zona_id')->index();
+            $table->foreignId('lugar_id')->nullable();
             $table->timestamps();
         });
     }

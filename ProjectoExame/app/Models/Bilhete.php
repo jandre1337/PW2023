@@ -9,7 +9,7 @@ class Bilhete extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['matricula','data_entrada','data_saida','zona_id','veiculo_id'];
+    protected $fillable = ['lugar_id','matricula','data_entrada','data_saida','zona_id','veiculo_id'];
 
     public function veiculo()
     {
@@ -18,5 +18,9 @@ class Bilhete extends Model
     public function zona()
     {
         return $this->belongsTo(Zona::class);
+    }
+    public function lugar()
+    {
+        return $this->belongsTo(Lugar::class);
     }
 }
