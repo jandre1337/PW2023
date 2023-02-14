@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\DTO\ClienteDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClienteFormRequest;
-use App\Models\User;
+use App\Models\Lugar;
 
-class ClienteApiController extends Controller
+class LugarApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class ClienteApiController extends Controller
      */
     public function index()
     {
-        $clientes = User::all();
-        return response()->json($clientes);
+        $lugares = Lugar::all();
+        return response()->json($lugares);
     }
 
 
@@ -41,10 +41,10 @@ class ClienteApiController extends Controller
      * @param  \App\Models\Parque  $parque
      * @return \Illuminate\Http\Response
      */
-    public function show(int $client_id)
+    public function show(int $zona_id)
     {
-        $cliente = User::where('id', $client_id)->first();
-        return response()->json($cliente, 200);
+        $lugar = Lugar::where('zona_id', $zona_id)->get();
+        return response()->json($lugar, 200);
     }
 
 

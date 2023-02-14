@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\ClienteApiController;
+use App\Http\Controllers\Api\LugarApiController;
 use App\Http\Controllers\Api\ParqueApiController;
+use App\Http\Controllers\Api\VeiculoApiController;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Models\Veiculo;
@@ -31,11 +34,22 @@ Route::prefix('/parques')->group(function () {
 });
 
 Route::prefix('/clientes')->group(function () {
-    Route::get('/', [ParqueApiController::class, 'index']);
+    Route::get('/', [ClienteApiController::class, 'index']);
     Route::post('/', [ParqueApiController::class, 'store']);
-    Route::get('/{id}', [ParqueApiController::class, 'show']);
+    Route::get('/{id}', [ClienteApiController::class, 'show']);
     Route::put('/{id}', [ParqueApiController::class, 'update']);
     Route::delete('/{id}', [ParqueApiController::class, 'delete']);
 });
+
+Route::prefix('/veiculos')->group(function () {
+    Route::get('/', [VeiculoApiController::class, 'index']);
+    Route::get('/{matricula}', [VeiculoApiController::class, 'show']);
+});
+
+Route::prefix('/lugares')->group(function () {
+    Route::get('/', [LugarApiController::class, 'index']);
+    Route::get('/{zona_id}', [LugarApiController::class, 'show']);
+});
+
 
 

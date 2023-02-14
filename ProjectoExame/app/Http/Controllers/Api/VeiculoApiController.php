@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\DTO\ClienteDTO;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ClienteFormRequest;
-use App\Models\User;
+use App\Http\Requests\ParqueFormRequest;
+use App\Models\Veiculo;
 
-class ClienteApiController extends Controller
+class VeiculoApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class ClienteApiController extends Controller
      */
     public function index()
     {
-        $clientes = User::all();
-        return response()->json($clientes);
+        $veiculos = Veiculo::all();
+        return response()->json($veiculos);
     }
 
 
@@ -41,10 +41,10 @@ class ClienteApiController extends Controller
      * @param  \App\Models\Parque  $parque
      * @return \Illuminate\Http\Response
      */
-    public function show(int $client_id)
+    public function show(int $matricula)
     {
-        $cliente = User::where('id', $client_id)->first();
-        return response()->json($cliente, 200);
+        $veiculo = Veiculo::where('matricula', $matricula)->first();
+        return response()->json($veiculo, 200);
     }
 
 
