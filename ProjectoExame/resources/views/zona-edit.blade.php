@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-12 col-md-6 col-lg-4" style="padding-top:5%;padding-bottom:5%;">
-        <h1>Edit Zona</h1>
+        <h1>Editar Zona</h1>
 
         <form action="{{ $zona->id  }}" method="POST">
             @method('PUT')
@@ -28,7 +28,7 @@
                 <input id="valor_zona" type="currency" name="valor_zona" value="{{ $zona->valor_zona }}"/>
             </div>
             <div>
-                <input type="submit" value="Edit Zona">
+                <input type="submit" value="Editar Zona">
             </div>
 
         </form>

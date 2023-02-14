@@ -25,7 +25,7 @@
             </div>
 
             <div>
-                <label for="qtdd_lugares">Qtd de Lugares:</label>
+                <label for="qtdd_lugares">Qtdd. de Lugares:</label>
                 <input id="qtdd_lugares" type="number" name="qtdd_lugares" value="{{ $piso->qtdd_lugares }}"/>
             </div>
 
@@ -43,7 +43,7 @@
     </div>
     <div class="col-12 col-md-6 col-lg-6" style="padding-top:5%;padding-bottom:5%;">
         <div class="row" style="padding-top:5%;">
-            <div class="col-12 col-sm-6">
+            <div class="col-12 col-sm-12">
                 <div class="col-sm-9">
                     <h2><b>Zonas</b></h2>
                 </div>

@@ -32,7 +32,7 @@
     <div class="col-12 col-md-6 col-lg-6" style="padding-top:5%;padding-bottom:5%;">
         <div class="row" style="padding-top:5%;">
 
-            <div class="col-12 col-sm-6">
+            <div class="col-12 col-sm-12">
                 <h2> Pisos</h2>
                 <div class="col-sm-12 ">
                     <a href="/pisos/{{ $parque->id }}/new" class="btn btn-success float-right">
@@ -49,7 +49,7 @@
                         <th>Ações</th>
                     </tr>
                     </thead>
-                    <tbody>< class="container bg-secondary text-white" >
+                    <tbody>
                         @foreach ($pisos as $piso)
 
                             <tr>

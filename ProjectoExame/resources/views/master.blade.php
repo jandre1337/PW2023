@@ -11,7 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     @yield('styles')
 </head>
-<body>
+<body style="padding-bottom:150px;">
 @include('partials.nav')
 <div class="container">
     <div class="col">
@@ -22,7 +22,8 @@
 </div>
 @yield('messages')
 
-@include('partials.footer')
+
 @laravelViewsScripts(laravel-views)
 </body>
+@include('partials.footer')
 </html>

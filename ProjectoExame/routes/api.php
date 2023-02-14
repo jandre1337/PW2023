@@ -30,4 +30,12 @@ Route::prefix('/parques')->group(function () {
     Route::delete('/{id}', [ParqueApiController::class, 'delete']);
 });
 
+Route::prefix('/clientes')->group(function () {
+    Route::get('/', [ParqueApiController::class, 'index']);
+    Route::post('/', [ParqueApiController::class, 'store']);
+    Route::get('/{id}', [ParqueApiController::class, 'show']);
+    Route::put('/{id}', [ParqueApiController::class, 'update']);
+    Route::delete('/{id}', [ParqueApiController::class, 'delete']);
+});
+
 

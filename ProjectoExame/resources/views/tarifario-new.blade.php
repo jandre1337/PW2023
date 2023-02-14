@@ -26,15 +26,15 @@
 
             <div>
                 <label for="preco">Preço:</label>
-                <input id="preco" type="number" name="preco" value="{{ old('preco') }}"/>
+                <input id="preco" type="currency" name="preco" value="{{ old('preco') }}"/>
             </div>
 
             <div>
                 <label for="taxa_extra">Taxa Extra:</label>
-                <input id="taxa_extra" type="number" name="taxa_extra" value="{{ old('taxa_extra') }}"/>
+                <input id="taxa_extra" type="currency" name="taxa_extra" value="{{ old('taxa_extra') }}"/>
             </div>
             <div>
-                <label for="desconto">Descono:</label>
+                <label for="desconto">Desconto:</label>
                 <input id="desconto" type="number" name="desconto" value="{{ old('desconto') }}"/>
             </div>
 

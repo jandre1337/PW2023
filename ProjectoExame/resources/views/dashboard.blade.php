@@ -26,19 +26,19 @@
                     var chart = new CanvasJS.Chart("chartContainer", {
                         animationEnabled: true,
                         title: {
-                            text: "Hourly Average CPU Utilization"
+                            text: "Total bilhetes por dia"
                         },
                         axisX: {
-                            title: "Day"
+                            title: "Dia"
                         },
                         axisY: {
-                            title: "Percentage",
-                            suffix: "%",
+                            title: "Total",
+                            suffix: "",
                             includeZero: true
                         },
                         data: [{
                             type: "line",
-                            name: "CPU Utilization",
+                            name: "adesão",
                             connectNullData: true,
                             //nullDataLineDashType: "solid",
                             xValueType: "dateTime",

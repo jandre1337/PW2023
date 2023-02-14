@@ -28,10 +28,7 @@
                 </select>
             </div>
 
-            <div>
-                <label for="localizacao">Localização:</label>
-                <input id="localizacao" type="text" name="localizacao" value="{{ $lugar->localizacao }}"/>
-            </div>
+
 
             <div>
                 <label for="estado">Estado:</label>

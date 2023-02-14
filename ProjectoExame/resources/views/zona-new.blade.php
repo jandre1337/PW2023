@@ -39,6 +39,10 @@
                 <label for="valor_zona">Valor Zona:</label>
                 <input id="valor_zona" type="currency" name="valor_zona" value="{{ old('valor_zona') }}"/>
             </div>
+            <div>
+                <label for="Lugares da zona">Lugares alocados a esta zona:</label>
+                <input id="tipo_zona" type="number" name="Qtdd. de Lugares" value="{{ old('tipo_zona') }}">
+            </div>
 
             <div>
                 <input type="submit" value="Add Zona">

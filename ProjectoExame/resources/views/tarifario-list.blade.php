@@ -21,8 +21,8 @@
             <tr>
                 <th>Tarifa</th>
                 <th>Preço</th>
-                <th>Desconto</th>
                 <th>Taxa Extra</th>
+                <th>Desconto</th>
                 <th>Ações</th>
             </tr>
             </thead>
@@ -31,9 +31,9 @@
 
             <tr>
                 <td>{{ $tarifas->nome }}</td>
-                <td>{{ $tarifas->preco }}</td>
-                <td>{{ $tarifas->taxa_extra }}</td>
-                <td>{{ $tarifas->desconto }}</td>
+                <td>{{ $tarifas->preco }} €</td>
+                <td>{{ $tarifas->taxa_extra }} €</td>
+                <td>{{ $tarifas->desconto }}  %</td>
                 <td>
                     <a href="/tarifarios/{{$tarifas->id}}" class="btn ">
                         <i class="fa fa-edit fa-2x"></i>
