@@ -15,27 +15,43 @@
             </div>
         @endif
 
-        <form action="/zonatarifa/new" method="post">
+        <form action="/zona_tarifa/new" method="post">
 
             {{ csrf_field() }}
 
             <div>
-                <label for="designation">Nome:</label>
-                <input id="designation" type="text" name="name" value="{{ old('name') }}">
+                <label for="zona_id">Zona:</label>
+                <select  name="zona_id">
+                    @if ($zonas->count())
+                        @foreach($zonas as $zona)
+                            <option value="{{ $zona->id }}" {{ $selectedZona == $zona->id ? 'selected="selected"' : '' }}>Parque: {{$zona->piso->parque->nome}} Piso: {{$zona->piso->n_piso}} Zona: {{$zona->tipo_zona}}</option>
+                        @endforeach
+                    @endif
+                </select>
             </div>
 
             <div>
-                <label for="vatNumber">CC:</label>
-                <input id="vatNumber" type="number" name="cc" value="{{ old('cc') }}"/>
+                <label for="data_entrada">Data Entrada:</label>
+                <input id="data_entrada" type="datetime-local" name="data_entrada" value="{{ old('data_entrada') }}">
             </div>
 
             <div>
-                <label for="email">Email:</label>
-                <input id="email" type="text" name="email" value="{{ old('email') }}"/>
+                <label for="data_saida">Data Saida:</label>
+                <input id="data_saida" type="datetime-local" name="data_saida" value="{{ old('data_saida') }}"/>
+            </div>
+
+
+            <div>
+                <label for="modalidade">Modalidade:</label>
+                <select  name="modalidade">
+                    <option value="Diario" {{ $selectedModalidade == "Diario" ? 'selected="selected"' : '' }}>Diario</option>
+                    <option value="Mensal" {{ $selectedModalidade == "Mensal" ? 'selected="selected"' : '' }}>Mensal</option>
+                    <option value="Anual" {{ $selectedModalidade == "Anual" ? 'selected="selected"' : '' }}>Anual</option>
+                </select>
             </div>
             <div>
-                <label for="password">Password:</label>
-                <input id="password" type="password" name="password" value="{{ old('password') }}"/>
+                <label for="tamanho_frota">Tamanho Frota:</label>
+                <input id="tamanho_frota" type="number" name="tamanho_frota" value="{{ old('tamanho_frota') }}"/>
             </div>
 
             <div>
@@ -44,5 +60,6 @@
 
         </form>
     </div>
+
 
 @endsection

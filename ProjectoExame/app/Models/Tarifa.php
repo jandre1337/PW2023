@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Tarifa extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['nome','preco','taxa_extra','desconto'];
+
+    public function zona_tarifas()
+    {
+        return $this->hasMany(ZonaTarifa::class);
+    }
+
 }

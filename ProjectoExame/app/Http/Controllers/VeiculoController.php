@@ -66,6 +66,11 @@ class VeiculoController extends Controller
             'frota_id' => $request->frota_id,
         ])->save();
 
+        $frota = Frota::where('id', $request->frota_id)->first();
+        $veiculos_da_frota = Veiculo::where('frota_id', $request->frota_id)->get();
+        $frota->tamanho_frota = $veiculos_da_frota->count();
+        $frota->save();
+
         return redirect("/veiculos");
     }
 
@@ -140,7 +145,13 @@ class VeiculoController extends Controller
     public function destroy($id)
     {
         $veiculo = Veiculo::where('id', $id)->first();
+        $frota = Frota::where('id', $veiculo->frota_id)->first();
         $veiculo->delete();
+
+        $veiculos_da_frota = Veiculo::where('frota_id', $veiculo->frota_id)->get();
+        $frota->tamanho_frota = $veiculos_da_frota->count();
+        $frota->save();
+
         return redirect("/veiculos");
     }
 }

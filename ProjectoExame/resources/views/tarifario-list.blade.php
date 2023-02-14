@@ -22,6 +22,7 @@
                 <th>Tarifa</th>
                 <th>Preço</th>
                 <th>Desconto</th>
+                <th>Taxa Extra</th>
                 <th>Ações</th>
             </tr>
             </thead>
@@ -29,8 +30,9 @@
             @foreach ($tarifario as $tarifas)
 
             <tr>
-                <td>{{ $tarifas->name }}</td>
+                <td>{{ $tarifas->nome }}</td>
                 <td>{{ $tarifas->preco }}</td>
+                <td>{{ $tarifas->taxa_extra }}</td>
                 <td>{{ $tarifas->desconto }}</td>
                 <td>
                     <a href="/tarifarios/{{$tarifas->id}}" class="btn ">

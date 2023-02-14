@@ -2,30 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Zona;
 use App\Models\ZonaTarifa;
 use Illuminate\Http\Request;
 
 class ZonaTarifaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('zonatarifa-list',
-            ['zonatarifas' => ZonaTarifa::all()]);
-    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($tarifa_id)
     {
-        return view('zonatarifa-new');
+        $zonas = Zona::all();
+        return view('zonatarifa-new',
+            [
+                'tarifa_id' => $tarifa_id,
+                'zonas' => $zonas,
+                'selectedZona' => 0,
+                'selectedModalidade' => 0
+            ]
+        );
     }
 
     /**
@@ -57,17 +56,6 @@ class ZonaTarifaController extends Controller
         ])->save();
 
         return redirect("/zonatarifa-list");
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

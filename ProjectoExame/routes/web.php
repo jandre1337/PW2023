@@ -11,6 +11,7 @@ use App\Http\Controllers\TarifarioController;
 use App\Http\Controllers\LugarController;
 use App\Http\Controllers\VeiculoController;
 use App\Http\Controllers\ZonaController;
+use App\Http\Controllers\ZonaTarifaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -96,6 +97,13 @@ Route::middleware('auth')->group(function () {
     Route::post("bilhete", [BilheteController::class, 'store']);
     Route::get("bilhete/pagar", [BilheteController::class, 'edit']);
     Route::put("bilhete/pagar/{id}", [BilheteController::class, 'update']);
+
+    Route::get("zonas_tarifa/{tarifa_id}/new", [ZonaTarifaController::class, 'create']);
+    Route::post("zonas_tarifa/{tarifa_id}/new", [ZonaTarifaController::class, 'store']);
+    Route::get("zonas_tarifa/{id}", [ZonaTarifaController::class, 'edit']);
+    Route::put("zonas_tarifa/{id}", [ZonaTarifaController::class, 'update']);
+    Route::get("zonas_tarifa/{id}/delete", [ZonaTarifaController::class, 'destroy']);
+
 });
 
 require __DIR__.'/auth.php';

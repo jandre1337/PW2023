@@ -20,22 +20,22 @@
             {{ csrf_field() }}
 
             <div>
-                <label for="designation">Nome:</label>
-                <input id="designation" type="text" name="name" value="{{ old('name') }}">
+                <label for="nome">Nome:</label>
+                <input id="nome" type="text" name="nome" value="{{ old('nome') }}">
             </div>
 
             <div>
-                <label for="vatNumber">CC:</label>
-                <input id="vatNumber" type="number" name="cc" value="{{ old('cc') }}"/>
+                <label for="preco">Preço:</label>
+                <input id="preco" type="number" name="preco" value="{{ old('preco') }}"/>
             </div>
 
             <div>
-                <label for="email">Email:</label>
-                <input id="email" type="text" name="email" value="{{ old('email') }}"/>
+                <label for="taxa_extra">Taxa Extra:</label>
+                <input id="taxa_extra" type="number" name="taxa_extra" value="{{ old('taxa_extra') }}"/>
             </div>
             <div>
-                <label for="password">Password:</label>
-                <input id="password" type="password" name="password" value="{{ old('password') }}"/>
+                <label for="desconto">Descono:</label>
+                <input id="desconto" type="number" name="desconto" value="{{ old('desconto') }}"/>
             </div>
 
             <div>

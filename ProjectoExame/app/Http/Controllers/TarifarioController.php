@@ -39,18 +39,20 @@ class TarifarioController extends Controller
         request()->validate([
             'nome' => 'required',
             'preco' => 'required',
+            'taxa_extra' =>'required',
             'desconto' => 'required'
         ]);
 
-        $tarifa = new Parque();
+        $tarifa = new Tarifa();
 
         $tarifa->fill([
             'nome' => $request->nome,
             'preco' => $request->preco,
+            'taxa_extra' => $request->taxa_extra,
             'desconto' => $request->desconto
         ])->save();
 
-        return redirect("/tarifario-list");
+        return redirect("/tarifarios");
     }
     /**
      * Display the specified resource.
@@ -74,7 +76,7 @@ class TarifarioController extends Controller
         $tarifa = Tarifa::where('id', $id)->first();
 
         return view('tarifario-edit',
-            ['tarifario' => $tarifa]);
+            ['tarifa' => $tarifa]);
     }
 
     /**
@@ -89,7 +91,8 @@ class TarifarioController extends Controller
         request()->validate([
             'nome' => 'required',
             'preco' => 'required',
-            'desconto' => 'required',
+            'taxa_extra' =>'required',
+            'desconto' => 'required'
         ]);
 
         $tarifa = Tarifa::where('id', $id)->first();
@@ -97,10 +100,11 @@ class TarifarioController extends Controller
         $tarifa->fill([
             'nome' => $request->nome,
             'preco' => $request->preco,
+            'taxa_extra' => $request->taxa_extra,
             'desconto' => $request->desconto
         ])->save();
 
-        return redirect("/tariofario-edit");
+        return redirect("/tarifarios");
     }
 
     /**
@@ -111,6 +115,7 @@ class TarifarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tarifa = Tarifa::where('id', $id)->first();
+        $tarifa->delete();
     }
 }
