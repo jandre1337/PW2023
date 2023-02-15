@@ -11,10 +11,13 @@
                 <input id="matricula" type="text" name="matricula" value="{{ old('matricula') }}">
             </div>
             <div>
+
                 <label for="zona_id">Zona:</label>
                 <select  name="zona_id">
                     @if ($zonas->count())
+
                         @foreach($zonas as $zona)
+                            {{dd($zona)}}
                             <option value="{{ $zona->id }}">{{ $zona->piso->parque->nome }} Piso:{{ $zona->piso->n_piso }} Zona:{{ $zona->tipo_zona }}</option>
                         @endforeach
                     @endif

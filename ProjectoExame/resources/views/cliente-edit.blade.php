@@ -49,10 +49,10 @@
                     </tr>
                     </thead>
                     <tbody><div class="container bg-secondary text-white" >
-                    @foreach ($frotas as $frota)
+                    @foreach ($cliente->Frota as $frota)
                         <tr>
                             <td>{{$frota->id }} </td>
-                            <td>{{$frota->user()}}</td>
+                            <td>{{$frota->User->name}}</td>
                             <td>{{$frota->tamanho_frota}}</td>
                         </tr>
                     @endforeach

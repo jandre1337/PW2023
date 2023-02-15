@@ -29,7 +29,7 @@
                 <select  name="piso_id">
                     @if ($pisos->count())
                         @foreach($pisos as $piso)
-                            <option value="{{ $piso->id }}" {{ $selectedPiso == $piso->id ? 'selected="selected"' : '' }}>Parque: {{$piso->parque->nome}} -> Piso nº:{{ $piso->n_piso }}</option>
+                            <option value="{{ $piso->id }}" {{ $selectedPiso == $piso->id ? 'selected="selected"' : '' }}</option>
                         @endforeach
                     @endif
                 </select>

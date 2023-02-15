@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\PisoService;
 use App\Models\Parque;
 use App\Models\Piso;
+use App\Models\Veiculo;
 use App\Models\Zona;
 use Illuminate\Http\Request;
 
@@ -27,8 +29,10 @@ class PisoController extends Controller
      */
     public function create($id)
     {
-        return view('piso-new',
-            ['id' => $id]);
+        if (auth()->user()->can("create", Veiculo::class)){
+            return view('piso-new',
+                ['id' => $id]); }
+        else { return redirect()->back();}
     }
 
     /**
@@ -37,21 +41,17 @@ class PisoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,  $id)
+    public function store(Request $request,  $id , PisoService $pisoService)
     {
+        if (auth()->user()->can("create", Piso::class)){
         request()->validate([
             'n_piso' => 'required',
             'lugares' => 'required'
         ]);
+        $pisoService->criarPiso($request, $id);
+        }
+        else { return redirect()->back();}
 
-        $piso = new Piso();
-
-        $piso->fill([
-            'n_piso' => $request->n_piso,
-            'estado' => $request->estado == "on",
-            'qtdd_lugares' => $request->lugares,
-            'parque_id' => $id
-        ])->save();
 
         return redirect("/pisos");
     }
@@ -75,15 +75,18 @@ class PisoController extends Controller
      */
     public function edit($id)
     {
-        $piso = Piso::where('id', $id)->first();
+        if (auth()->user()->can("create", Veiculo::class)) {
+            $piso = Piso::where('id', $id)->first();
 
-        return view('piso-edit',
-            [
-                'piso' => $piso,
-                'zonas' => $piso->zonas,
-                'parques' => Parque::all(),
-                'selectedParque' => $piso->parque_id
-            ]);
+            return view('piso-edit',
+                [
+                    'piso' => $piso,
+                    'zonas' => $piso->zonas,
+                    'parques' => Parque::all(),
+                    'selectedParque' => $piso->parque_id
+                ]);
+
+        }else { return redirect()->back();}
     }
 
     /**
@@ -121,8 +124,10 @@ class PisoController extends Controller
      */
     public function destroy($id)
     {
-        $piso = Piso::where('id', $id)->first();
-        $piso->delete();
+        if (auth()->user()->can("delete", Piso::class)) {
+            $piso = Piso::where('id', $id)->first();
+            $piso->delete();
         return redirect("/pisos");
+        }else { return redirect()->back();}
     }
 }

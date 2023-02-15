@@ -23,4 +23,5 @@ class Bilhete extends Model
     {
         return $this->belongsTo(Lugar::class);
     }
+
 }

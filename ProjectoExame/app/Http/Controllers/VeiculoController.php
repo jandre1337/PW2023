@@ -30,12 +30,14 @@ class VeiculoController extends Controller
      */
     public function create(Request $request)
     {
-        return view('veiculo-new',[
-            'users' => User::all(),
-            'frotas' => Frota::all(),
-            'selectedFrota' => 0,
-            'selectedUser' => $request->user()->getKey()
-        ]);
+        if (auth()->user()->can("create", Veiculo::class)){
+            return view('veiculo-new',[
+                'users' => User::all(),
+                'frotas' => Frota::all(),
+                'selectedFrota' => 0,
+                'selectedUser' => $request->user()->getKey()
+            ]);
+        } else { return redirect()->back();}
     }
 
     /**
@@ -46,25 +48,31 @@ class VeiculoController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'matricula' => 'required',
-            'marca' => 'required',
-            'modelo' => 'required',
-            'ano' => 'required',
-            'user_id' => 'required',
-            'frota_id' => 'required'
-        ]);
+        if (auth()->user()->can("create", Veiculo::class)){
+            request()->validate([
+                'matricula' => 'required',
+                'marca' => 'required',
+                'modelo' => 'required',
+                'ano' => 'required',
+                'user_id' => 'required',
+                'frota_id' => 'required'
+            ]);
+            $veiculo = new Veiculo();
 
-        $veiculo = new Veiculo();
+            $veiculo->fill([
+                'matricula' => $request->matricula,
+                'marca' => $request->marca,
+                'modelo' => $request->modelo,
+                'ano' => $request->ano,
+                'user_id' => $request->user_id,
+                'frota_id' => $request->frota_id,
+            ])->save();
+        } else { return redirect()->back();}
 
-        $veiculo->fill([
-            'matricula' => $request->matricula,
-            'marca' => $request->marca,
-            'modelo' => $request->modelo,
-            'ano' => $request->ano,
-            'user_id' => $request->user_id,
-            'frota_id' => $request->frota_id,
-        ])->save();
+
+
+
+
 
         $frota = Frota::where('id', $request->frota_id)->first();
         $veiculos_da_frota = Veiculo::where('frota_id', $request->frota_id)->get();

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Services\ClienteServices;
 use App\Models\Frota;
 use App\Models\User;
+use App\Models\Veiculo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -37,7 +39,7 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ClienteServices $clienteService)
     {
         request()->validate([
             'email' => 'required|email|unique:users,email',
@@ -45,15 +47,7 @@ class ClienteController extends Controller
             'cc' => 'required|max:10',
             'password' => 'required|min:6'
         ]);
-
-        $cliente = new User();
-
-        $cliente->fill([
-            'name' => $request->name,
-            'email' => $request->email,
-            'cc' => $request->cc,
-            'password' => Hash::make($request->Password)
-        ])->save();
+        $clienteService->criarCliente($request);
 
         return redirect("/clientes");
     }
@@ -75,15 +69,16 @@ class ClienteController extends Controller
      * @param  int  $cc
      * @return \Illuminate\Http\Response
      */
-    public function edit($cc)
+    public function edit(Request $request, int $cc, ClienteServices $clienteServices)
     {
-        $cliente = User::where('cc', $cc)->first();
-        $frotas = Frota::where('user_id', $cc);
-        return view('cliente-edit',
-            [
-                'cliente' => $cliente,
-                'frotas' => $frotas
-            ]);
+
+            $lista = $clienteServices->editarCliente($request, $cc);
+
+            return view('cliente-edit',
+                [
+                    'cliente' => $lista
+                ]);
+
     }
 
     /**
@@ -93,23 +88,19 @@ class ClienteController extends Controller
      * @param  int  $cc
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $cc)
+    public function update(Request $request,int $cc, ClienteServices $clienteServices)
     {
-        request()->validate([
-            'email' => 'required|email|unique:users,email',
-            'name' => 'required',
-            'cc' => 'required|max:10',
-            'password' => 'required|min:6'
-        ]);
 
-        $cliente = User::where('cc', $cc)->first();
-        $cliente->fill([
-            'name' => $request->name,
-            'email' => $request->email,
-            'cc' => $request->cc,
-            'Password' => Hash::make($request->Password)
-        ])->save();
-    }
+            $clienteServices->atualizarCliente($request, $cc);
+            request()->validate([
+                'email' => 'required|email|unique:users,email',
+                'name' => 'required',
+                'cc' => 'required|max:10',
+                'password' => 'required|min:6'
+            ]);
+        }
+
+
 
     /**
      * Remove the specified resource from storage.
