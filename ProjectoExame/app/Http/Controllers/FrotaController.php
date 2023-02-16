@@ -35,7 +35,10 @@ class FrotaController extends Controller
      */
     public function create()
     {
-        return view('frota-new');
+        return view('frota-new',
+            [
+                'selectedModalidade' => 0
+            ]);
     }
 
     /**
@@ -85,7 +88,8 @@ class FrotaController extends Controller
         return view('frota-edit',
             [
                 'frota' => $frota,
-                'veiculos' => $veiculos
+                'veiculos' => $veiculos,
+                'selectedModalidade' => 0
             ]);
     }
 

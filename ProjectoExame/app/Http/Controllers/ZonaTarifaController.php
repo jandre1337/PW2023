@@ -33,11 +33,10 @@ class ZonaTarifaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $tarifa_id)
     {
         request()->validate([
             'zona_id' => 'required',
-            'tarifa_id' => 'required',
             'data_entrada' => 'required',
             'data_saida' => 'required',
             'modalidade' => 'required',
@@ -48,14 +47,14 @@ class ZonaTarifaController extends Controller
 
         $zonatarifa->fill([
             'zona_id' => $request->zona_id,
-            'tarifa_id' => $request->tarifa_id,
+            'tarifa_id' => $tarifa_id,
             'data_entrada' => $request->data_entrada,
             'data_saida' => $request->data_saida,
             'modalidade' => $request->modalidade,
             'tamanho_frota' => $request->tamanho_frota
         ])->save();
 
-        return redirect("/zonatarifa-list");
+        return redirect("/tarifarios");
     }
 
     /**

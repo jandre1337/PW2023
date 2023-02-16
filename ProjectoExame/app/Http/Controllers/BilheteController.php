@@ -45,12 +45,13 @@ class BilheteController extends Controller
 
     public function edit(Request $request, BilheteService $bilheteService)
     {
-        $preco_a_pagar = $bilheteService->editarBilhete($request);
+        $preco_a_pagar = $bilheteService->editarBilhete($request );
 
         return view('bilhete-pagar',
             [
                 'bilhete'=> Bilhete::where('id', $request->bilhete_id)->first(),
-                'preco_a_pagar'=> $preco_a_pagar,
+                'preco_a_pagar'=> $preco_a_pagar['preco'],
+                'hours'=> $preco_a_pagar['hours'],
             ]);
 
     }

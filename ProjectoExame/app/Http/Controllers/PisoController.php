@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Services\PisoService;
 use App\Models\Parque;
 use App\Models\Piso;
+use App\Models\User;
 use App\Models\Veiculo;
 use App\Models\Zona;
 use Illuminate\Http\Request;
@@ -18,8 +19,25 @@ class PisoController extends Controller
      */
     public function index()
     {
+
+        $pisos = Piso::all();
+        $bilhetes_por_piso = [];
+        $contador = 0;
+        foreach ($pisos as $piso) {
+            foreach ($piso->zonas as $zona) {
+                $contador += $zona->qtdd_lugares;
+            }
+            $bilhetes_por_piso += [['n_piso'=>$piso->n_piso, 'count'=>$contador]];
+        }
+
+
+
         return view('piso-list',
-            ['pisos' => Piso::all()]);
+            [
+                'pisos' => Piso::all(),
+                'bilhetes_por_piso' => $bilhetes_por_piso
+
+            ]);
     }
 
     /**
@@ -32,7 +50,9 @@ class PisoController extends Controller
         if (auth()->user()->can("create", Veiculo::class)){
             return view('piso-new',
                 ['id' => $id]); }
-        else { return redirect()->back();}
+        else {
+            return redirect()->back()->with('warning','não tens permissões.');
+            }
     }
 
     /**
@@ -45,8 +65,7 @@ class PisoController extends Controller
     {
         if (auth()->user()->can("create", Piso::class)){
         request()->validate([
-            'n_piso' => 'required',
-            'lugares' => 'required'
+            'n_piso' => 'required'
         ]);
         $pisoService->criarPiso($request, $id);
         }
@@ -100,7 +119,6 @@ class PisoController extends Controller
     {
         request()->validate([
             'n_piso' => 'required',
-            'qtdd_lugares' => 'required',
             'parque_id' => 'required'
         ]);
 
@@ -109,7 +127,6 @@ class PisoController extends Controller
         $piso->fill([
             'n_piso' => $request->n_piso,
             'estado' => $request->estado == "on",
-            'qtdd_lugares' => $request->qtdd_lugares,
             'parque_id' => $request->parque_id
         ])->save();
 

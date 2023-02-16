@@ -44,17 +44,14 @@
                     <thead>
                     <tr>
                         <th>Nº Piso</th>
-                        <th>Lugares</th>
                         <th>Estado</th>
                         <th>Ações</th>
                     </tr>
                     </thead>
                     <tbody>
                         @foreach ($pisos as $piso)
-
                             <tr>
                                 <td>{{ $piso->n_piso }}</td>
-                                <td>{{ $piso->qtdd_lugares }}</td>
                                 <td>{{ $piso->estado }}</td>
                                 <td>
                                     <a href="/pisos/{{$piso->id}}" class="btn ">
@@ -70,6 +67,7 @@
             </div>
 
         </div>
+
     </div>
 
 @endsection

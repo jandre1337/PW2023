@@ -29,7 +29,7 @@
                 <select  name="piso_id">
                     @if ($pisos->count())
                         @foreach($pisos as $piso)
-                            <option value="{{ $piso->id }}" {{ $selectedPiso == $piso->id ? 'selected="selected"' : '' }}</option>
+                            <option value="{{ $piso->id }}" {{ $selectedPiso == $piso->id ? 'selected="selected"' : '' }}>{{ $piso->n_piso }}</option>
                         @endforeach
                     @endif
                 </select>
@@ -40,8 +40,8 @@
                 <input id="valor_zona" type="currency" name="valor_zona" value="{{ old('valor_zona') }}"/>
             </div>
             <div>
-                <label for="Lugares da zona">Lugares alocados a esta zona:</label>
-                <input id="tipo_zona" type="number" name="Qtdd. de Lugares" value="{{ old('tipo_zona') }}">
+                <label for="qtdd_lugares">Lugares alocados a esta zona:</label>
+                <input id="qtdd_lugares" type="number" name="qtdd_lugares" value="{{ old('qtdd_lugares') }}">
             </div>
 
             <div>

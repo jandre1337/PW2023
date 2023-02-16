@@ -33,7 +33,7 @@ class BilheteService
         ])->save();
 
     }
-    public function editarBilhete(Request $request, string $cc){
+    public function editarBilhete(Request $request){
         $bilhete = Bilhete::where('id', $request->bilhete_id)->first();
         $diff_date = abs(strtotime($bilhete->data_entrada) - strtotime(Carbon::now()));
         $bilhete->data_saida = Carbon::now();
@@ -46,7 +46,11 @@ class BilheteService
 
         $preco_a_pagar = $bilhete->zona->valor_zona * $hours;
 
-        return $preco_a_pagar;
+        return [
+            'preco' => $preco_a_pagar,
+            'hours' => $hours
+        ];
+
 
     }
 

@@ -17,8 +17,9 @@
                     @if ($zonas->count())
 
                         @foreach($zonas as $zona)
-                            {{dd($zona)}}
-                            <option value="{{ $zona->id }}">{{ $zona->piso->parque->nome }} Piso:{{ $zona->piso->n_piso }} Zona:{{ $zona->tipo_zona }}</option>
+                            @if ($zona->piso != null and $zona->piso->parque != null )
+                                <option value="{{ $zona->id }}">{{ $zona->piso->parque->nome }} Piso:{{ $zona->piso->n_piso }} Zona:{{ $zona->tipo_zona }}</option>
+                            @endif
                         @endforeach
                     @endif
                 </select>
@@ -26,6 +27,7 @@
             <button type="submit">Registar entrada</button>
         </form>
     </div>
+
     <div>
         <h1> Saida de Veiculo</h1>
         <form action="/bilhete/pagar" method="get">

@@ -9,6 +9,8 @@ class ZonaTarifa extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['zona_id','tarifa_id','data_entrada','data_saida','modalidade', 'tamanho_frota'];
+
     public function zona()
     {
         return $this->belongsTo(Zona::class);

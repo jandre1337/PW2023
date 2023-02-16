@@ -27,7 +27,7 @@
             @foreach ($pisos as $piso)
 
             <tr>
-                <td>{{ $piso->parque_id }}</td>
+                <td>{{ $piso->parque->nome }}</td>
                 <td>{{ $piso->n_piso }}</td>
                 <td>{{ $piso->qtdd_lugares }}</td>
                 <td>{{ $piso->estado }}</td>

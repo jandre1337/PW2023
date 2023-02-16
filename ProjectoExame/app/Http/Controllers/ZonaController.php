@@ -46,7 +46,8 @@ class ZonaController extends Controller
         request()->validate([
             'tipo_zona' => 'required',
             'valor_zona' => 'required',
-            'piso_id' => 'required'
+            'piso_id' => 'required',
+            'qtdd_lugares' => 'required'
         ]);
 
         $zona = new Zona();
@@ -54,10 +55,11 @@ class ZonaController extends Controller
         $zona->fill([
             'tipo_zona' => $request->tipo_zona,
             'valor_zona' => $request->valor_zona,
-            'piso_id' => $request->piso_id
+            'piso_id' => $request->piso_id,
+            'qtdd_lugares' => $request->qtdd_lugares,
         ])->save();
 
-        for ($n_lugar = 1; $n_lugar <= 50; $n_lugar++) {
+        for ($n_lugar = 1; $n_lugar <= $request->qtdd_lugares; $n_lugar++) {
             $lugar = new Lugar();
             $lugar->fill([
                 'n_lugar' => $n_lugar,

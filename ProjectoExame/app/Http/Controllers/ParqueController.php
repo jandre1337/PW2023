@@ -96,6 +96,7 @@ class ParqueController extends Controller
     {
 
         $parque = Parque::where('id', $id)->first();
+
         return view('parque-edit',
             [
                 'parque' => $parque,

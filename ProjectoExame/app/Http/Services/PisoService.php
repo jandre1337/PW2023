@@ -19,7 +19,6 @@ class PisoService
         $piso->fill([
             'n_piso' => $request->n_piso,
             'estado' => $request->estado == "on",
-            'qtdd_lugares' => $request->lugares,
             'parque_id' => $id
         ])->save();
 

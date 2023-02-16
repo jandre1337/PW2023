@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <form action="/zona_tarifa/new" method="post">
+        <form action="/zonas_tarifa/{{$tarifa_id}}/new" method="post">
 
             {{ csrf_field() }}
 
@@ -24,7 +24,9 @@
                 <select  name="zona_id">
                     @if ($zonas->count())
                         @foreach($zonas as $zona)
-                            <option value="{{ $zona->id }}" {{ $selectedZona == $zona->id ? 'selected="selected"' : '' }}>Parque: {{$zona->piso->parque->nome}} Piso: {{$zona->piso->n_piso}} Zona: {{$zona->tipo_zona}}</option>
+                            @if ($zona->piso != null and $zona->piso->parque != null )
+                                <option value="{{ $zona->id }}" {{ $selectedZona == $zona->id ? 'selected="selected"' : '' }}>Parque: {{$zona->piso->parque->nome}} Piso: {{$zona->piso->n_piso}} Zona: {{$zona->tipo_zona}}</option>
+                            @endif
                         @endforeach
                     @endif
                 </select>
@@ -40,15 +42,16 @@
                 <input id="data_saida" type="datetime-local" name="data_saida" value="{{ old('data_saida') }}"/>
             </div>
 
-
             <div>
                 <label for="modalidade">Modalidade:</label>
                 <select  name="modalidade">
                     <option value="Diario" {{ $selectedModalidade == "Diario" ? 'selected="selected"' : '' }}>Diario</option>
                     <option value="Mensal" {{ $selectedModalidade == "Mensal" ? 'selected="selected"' : '' }}>Mensal</option>
                     <option value="Anual" {{ $selectedModalidade == "Anual" ? 'selected="selected"' : '' }}>Anual</option>
+                    <option value="Sem Modalidade" {{ $selectedModalidade == "Sem Modalidade" ? 'selected="selected"' : '' }}>Sem Modalidade</option>
                 </select>
             </div>
+
             <div>
                 <label for="tamanho_frota">Tamanho Frota:</label>
                 <input id="tamanho_frota" type="number" name="tamanho_frota" value="{{ old('tamanho_frota') }}"/>

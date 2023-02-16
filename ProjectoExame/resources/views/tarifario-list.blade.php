@@ -20,7 +20,7 @@
             <thead>
             <tr>
                 <th>Tarifa</th>
-                <th>Preço</th>
+                <th>Preço / hora</th>
                 <th>Taxa Extra</th>
                 <th>Desconto</th>
                 <th>Ações</th>
