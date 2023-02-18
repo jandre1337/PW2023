@@ -19,7 +19,7 @@
                     @if ($pisos->count())
                         @foreach($pisos as $piso)
 
-                            <option value="{{ $piso->id }}" {{ $selectedPiso == $piso->id ? 'selected="selected"' : '' }}></option>
+                            <option value="{{ $piso->id }}"> Piso:{{ $piso->n_piso }} </option>
                         @endforeach
                     @endif
                 </select>
