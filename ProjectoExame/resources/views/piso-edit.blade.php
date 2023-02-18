@@ -24,10 +24,6 @@
                 </select>
             </div>
 
-            <div>
-                <label for="qtdd_lugares">Qtdd. de Lugares:</label>
-                <input id="qtdd_lugares" type="number" name="qtdd_lugares" value="{{ $piso->qtdd_lugares }}"/>
-            </div>
 
             <div>
                 <label for="estado">Estado:</label>

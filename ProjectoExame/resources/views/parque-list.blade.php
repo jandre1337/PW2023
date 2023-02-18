@@ -37,7 +37,7 @@
                     <a href="/parques/{{$parque->id}}" class="btn ">
                         <i class="fa fa-edit fa-2x"></i>
                     </a>
-                    <a href="/parques/{{$parque->id}}/delete"  class="btn ">
+                    <a href="/parques/{{$parque->id}}/delete" class="btn ">
                         <i class="fa fa-trash fa-2x" ></i>
                     </a>
                 </td>

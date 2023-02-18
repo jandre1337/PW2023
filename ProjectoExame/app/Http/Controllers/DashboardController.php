@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 
 
+use App\Http\Services\FrotaService;
 use App\Models\Bilhete;
+use App\Models\Frota;
+use App\Models\Pagamento;
 use App\Models\Parque;
 use App\Models\User;
+use App\Models\Veiculo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,6 +24,9 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $count_clients = User::all()->count();
+        $receitas = Pagamento::all()->sum('preco_final');
+        $count_veiculos = Veiculo::all()->count();
+        $count_frotas = Frota::all()->count();
 
         $parques = Parque::all();
         $bilhetes_por_parque = [];
@@ -29,23 +37,29 @@ class DashboardController extends Controller
                     $contador += $zona->bilhetes->count();
                 }
             }
-            $bilhetes_por_parque += [['nome_parque'=>$parque->nome, 'count'=>$contador]];
+            $bilhetes_por_parque =array_merge($bilhetes_por_parque, [['nome_parque'=>$parque->nome, 'count'=>$contador]]);
         }
 
 
-        $date = date('Y-m-d');
-        $weekOfdays = [];
 
-        for($i =0; $i <= 7; $i++){
-            $date = strtotime('-'.$i.' day', strtotime($date))*1000;
-            $bilhetes = Bilhete::whereDay('data_entrada', $date)->get();
-            $weekOfdays += [[ 'date'=> $date , 'count'=>$bilhetes->count()]];
+
+        $weekOfdays = [];
+        for($i = 1; $i <= 7; ++$i){
+            $date = Carbon::now()->subDays($i);
+            $bilhetes = Bilhete::where('data_entrada', '<=', $date)
+                ->where('data_saida', '>=', $date)
+                ->get();
+            $timestamp= strtotime($date)*1000;
+            $weekOfdays = array_merge($weekOfdays,[[ $timestamp , $bilhetes->count()]]);
         }
 
 
         return view('dashboard',
             [
                 'count_clients' => $count_clients,
+                'count_veiculos' => $count_veiculos,
+                'count_frotas' => $count_frotas,
+                'receitas' => $receitas,
                 'bilhetes_por_parque' => $bilhetes_por_parque,
                 'weekOfdays' => $weekOfdays
             ]);

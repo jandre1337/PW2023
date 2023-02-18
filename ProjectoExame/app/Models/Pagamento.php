@@ -9,12 +9,11 @@ class Pagamento extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['preco_final','data_pagamento','estado_pagamento','user_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    public function zonatarifa()
-    {
-        return $this->belongsTo(ZonaTarifa::class);
-    }
+
 }

@@ -4,20 +4,32 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm">
+            <div class="col-3 text-light" style="text-align: center;margin:2px;padding: 20px;background-color:cornflowerblue;">
                 Total de Clientes Registados
                 <b>{{$count_clients}}</b>
+
             </div>
-            <div class="col-sm">
-                % de ocupação do parque
+
+            <div class="col-3 text-light" style="text-align: center;margin:2px;padding: 20px;background-color:cornflowerblue;">
+                Total de Veiculos Registados
+                <b>{{$count_veiculos}}</b>
+
             </div>
-            <div class="col-sm">
+            <div class="col-3 text-light" style="text-align: center;margin:2px;padding: 20px;background-color:cornflowerblue;">
+                Quantidade de frotas
+                <b>{{$count_frotas}} </b>
+
+            </div>
+            <div class="col-2 text-light" style="text-align: center;margin:2px;padding: 20px;background-color:cornflowerblue;">
                 Receitas totais
+                <b>{{$receitas}}€</b>
+
             </div>
+
         </div>
     </div>
 
-    <div class="container">
+    <div class="container mb-5">
         <h1>Gráficos</h1>
         <div class="row">
             <script>
@@ -42,11 +54,11 @@
                             connectNullData: true,
                             //nullDataLineDashType: "solid",
                             xValueType: "dateTime",
-                            xValueFormatString: "DD MMM",
-                            yValueFormatString: "#,##0.##\"%\"",
+                            xValueFormatString: "DD MMM hh:mm TT",
+                            yValueFormatString: "#,##0.##\" bilhetes\"",
                             dataPoints: [
                                 @foreach($weekOfdays as $wod)
-                                    { x : {{ $wod["date"] }} , y : {{ $wod["count"] }} }
+                                    { x : {{ $wod[0] }} , y : {{ $wod[1] }} },
                                 @endforeach
                             ]
                         }]
@@ -64,7 +76,7 @@
                             type: "column",
                             dataPoints:  [
                                 @foreach($bilhetes_por_parque as $bpp)
-                                    { label : "{{ $bpp["nome_parque"] }}" , y : {{ $bpp["count"] }}}
+                                    { label : "{{ $bpp["nome_parque"] }}" , y : {{ $bpp["count"] }}},
                                 @endforeach
                             ]
                         }]
@@ -76,7 +88,8 @@
             <div id="chartContainer" class="col" style="height: 300px; width: 100%;"></div>
             <div id="chartContainer2" class="col" style="height: 300px; width: 100%;"></div>
         </div>
-    </div>
+    </div >
+    {{json_encode($weekOfdays )}}
 
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 @endsection

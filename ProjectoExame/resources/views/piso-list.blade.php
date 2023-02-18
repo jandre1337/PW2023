@@ -19,7 +19,6 @@
             <tr>
                 <th>Parque</th>
                 <th>Nº Piso</th>
-                <th>Qtd de Lugares</th>
                 <th>Estado</th>
             </tr>
             </thead>
@@ -29,7 +28,6 @@
             <tr>
                 <td>{{ $piso->parque->nome }}</td>
                 <td>{{ $piso->n_piso }}</td>
-                <td>{{ $piso->qtdd_lugares }}</td>
                 <td>{{ $piso->estado }}</td>
                 <td>
                     <a href="/pisos/{{$piso->id}}" class="btn ">

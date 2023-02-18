@@ -1,12 +1,10 @@
 @extends('master')
-'bilhete'=> $bilhete,
-'hours'=> $hours,
-'preco_a_pagar'=> $preco_a_pagar,
+
 @section('content')
-    <div>
+    <div class="mb-4">
         <h1> Pagamento Bilhete nº{{$bilhete->id}} </h1>
-        <form action="/bilhete/pagar/{{$bilhete->id}}" method="post">
-            @method('PUT')
+        <form action="{{$tem_saldo_suficiente?"/bilhete/pagar/":"/clientes/saldo/" }}{{$bilhete->id}}" method="post">
+
             {{ csrf_field() }}
             <div>
                 <label>Zona:{{$bilhete->zona->tipo_zona}}</label>
@@ -36,7 +34,13 @@
                 <label><b>Preço a pagar:{{$preco_a_pagar}}</b></label>
             </div>
 
-            <button type="submit">Pagar Bilhete</button>
+            <div>
+                <label><b>Saldo:{{$saldo}}</b></label>
+            </div>
+
+            <input type="hidden" id="preco_a_pagar" name="preco_a_pagar" value="{{$preco_a_pagar}}">
+
+            <button type="submit">{{$tem_saldo_suficiente? "Pagar Bilhete":"Adicionar Saldo"}}</button>
         </form>
     </div>
 @endsection

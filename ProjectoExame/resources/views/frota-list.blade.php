@@ -21,6 +21,7 @@
             <tr>
                 <th>Nome Frota</th>
                 <th># Frota</th>
+                <th>Modalidade</th>
                 <th>Quantidade Veiculos</th>
                 <th>Ações</th>
             </tr>
@@ -31,6 +32,7 @@
             <tr>
                 <td>{{ $frota->nome }}</td>
                 <td>{{ $frota->id }}</td>
+                <td>{{ $frota->modalidade }}</td>
                 <td>{{ $tamanho_frota[$frota->id]  }}</td>
                 <td>
                     <a href="/frotas/{{$frota->id}}" class="btn ">

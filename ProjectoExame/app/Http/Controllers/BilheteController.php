@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Hash;
 class BilheteController extends Controller
 {
 
-    public function create()
+    public function bilhete_form()
     {
 
 
@@ -31,7 +31,7 @@ class BilheteController extends Controller
         ]);
     }
 
-    public function store(Request $request, BilheteService $bilheteService)
+    public function criar_bilhete(Request $request, BilheteService $bilheteService)
     {
         request()->validate([
             'matricula' => 'required',
@@ -43,23 +43,23 @@ class BilheteController extends Controller
         return redirect("/bilhete");
     }
 
-    public function edit(Request $request, BilheteService $bilheteService)
+    public function pagar_form(Request $request, BilheteService $bilheteService)
     {
-        $preco_a_pagar = $bilheteService->editarBilhete($request );
+        $preco_a_pagar = $bilheteService->detalhesBilhete($request);
 
         return view('bilhete-pagar',
             [
                 'bilhete'=> Bilhete::where('id', $request->bilhete_id)->first(),
                 'preco_a_pagar'=> $preco_a_pagar['preco'],
                 'hours'=> $preco_a_pagar['hours'],
+                'saldo'=> $preco_a_pagar['saldo'],
+                'tem_saldo_suficiente'=> $preco_a_pagar['tem_saldo_suficiente']
             ]);
-
     }
 
-    public function update(Request $request, BilheteService $bilheteService, $id)
+    public function pagar_submit(Request $request, BilheteService $bilheteService, $id)
     {
-        $bilheteService->atualizarBilhete($request, $id);
+        $bilheteService->pagarBilhete($request, $id);
         return redirect("/bilhete");
-
     }
 }

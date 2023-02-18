@@ -48,7 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::post("parques/new", [ParqueController::class, 'store']);
     Route::get("parques/{id}", [ParqueController::class, 'edit']);
     Route::put("parques/{id}", [ParqueController::class, 'update']);
-    Route::get("parques/{id}/delete", [ParqueController::class, 'destroy']);
+    Route::delete("parques/{id}/delete", [ParqueController::class, 'destroy']);
+    //Route::get("parques/{id}/delete", [ParqueController::class, 'destroy']);
 
     Route::get("clientes", [ClienteController::class, 'index']);
     Route::get("clientes/new", [ClienteController::class, 'create']);
@@ -56,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::get("clientes/{cc}", [ClienteController::class, 'edit']);
     Route::put("clientes/{cc}", [ClienteController::class, 'update']);
     Route::get("clientes/{cc}/delete", [ClienteController::class, 'destroy']);
+    Route::post("clientes/saldo/{bilhete_id}", [ClienteController::class, 'saldo_form']);
+    Route::put("clientes/saldo/{bilhete_id}", [ClienteController::class, 'saldo_submit']);
 
     Route::get("frotas", [FrotaController::class, 'index']);
     Route::get("frotas/new", [FrotaController::class, 'create']);
@@ -93,10 +96,10 @@ Route::middleware('auth')->group(function () {
     Route::put("zonas/{id}", [ZonaController::class, 'update']);
     Route::get("zonas/{id}/delete", [ZonaController::class, 'destroy']);
 
-    Route::get("bilhete", [BilheteController::class, 'create']);
-    Route::post("bilhete", [BilheteController::class, 'store']);
-    Route::get("bilhete/pagar", [BilheteController::class, 'edit']);
-    Route::put("bilhete/pagar/{id}", [BilheteController::class, 'update']);
+    Route::get("bilhete", [BilheteController::class, 'bilhete_form']);
+    Route::post("bilhete", [BilheteController::class, 'criar_bilhete']);
+    Route::get("bilhete/pagar", [BilheteController::class, 'pagar_form']);
+    Route::post("bilhete/pagar/{id}", [BilheteController::class, 'pagar_submit']);
 
     Route::get("zonas_tarifa/{tarifa_id}/new", [ZonaTarifaController::class, 'create']);
     Route::post("zonas_tarifa/{tarifa_id}/new", [ZonaTarifaController::class, 'store']);

@@ -7,9 +7,10 @@
         <form action="{{ $zona->id  }}" method="POST">
             @method('PUT')
             {{ csrf_field() }}
+
             <div>
                 <label for="tipo_zona">Tipo zona:</label>
-                <input id="tipo_zona" type="text" name="tipo_zona" value="{{ $zona->tipo_zona }} ">
+                <input id="tipo_zona" type="text" name="tipo_zona" value="{{ $zona->tipo_zona }}">
             </div>
 
             <div>
@@ -42,7 +43,7 @@
             <div class="col-12">
                 <div class="row">
                 @foreach ($zona->lugares as $lugar)
-                    <div class="col-2" style="text-align: center;margin:2px;padding: 30px;background-color: {{ $lugar->estado ? 'green' : 'grey' }}  ;">
+                    <div class="col-2" style="text-align: center;margin:2px;padding: 30px;background-color: {{ $lugar->estado ? $lugar->bemparado ? 'green' : 'orange': 'grey' }}  ;">
                         <a class="text-light" href="/lugar/{{$lugar->id}}">
                             <div>{{$lugar->n_lugar }}{{ $lugar->vip ? '(VIP)' : '' }}</div>
                             <div>{{$lugar->veiculo != null ? $lugar->veiculo->matricula : '' }}</div>

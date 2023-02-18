@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\FrotaService;
 use App\Models\Frota;
+use App\Models\Piso;
 use App\Models\User;
 use App\Models\Veiculo;
 use Illuminate\Http\Request;
@@ -24,7 +26,8 @@ class FrotaController extends Controller
         return view('frota-list',
             [
                 'frotas' =>$frotas,
-                'tamanho_frota' => $tamanho_frota
+                'tamanho_frota' => $tamanho_frota,
+
             ]);
     }
 
@@ -47,19 +50,13 @@ class FrotaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,  FrotaService $frotaService)
     {
+
         request()->validate([
             'nome' => 'required'
         ]);
-
-        $frota = new Frota();
-
-        $frota->fill([
-            'nome' => $request->nome,
-            'tamanho_frota' => 0,
-            'user_id' => $request->user()->getKey()
-        ])->save();
+        $frotaService->criarFrota($request);
 
         return redirect("/frotas");
     }
@@ -103,16 +100,17 @@ class FrotaController extends Controller
     public function update(Request $request, $id)
     {
         request()->validate([
-            'nome' => 'required',
-            'tamanho_frota' => 'required'
+            'nome' => 'required'
         ]);
 
         $frota = Frota::where('id', $id)->first();
 
         $frota->fill([
-            'user_id' => $request->user_id,
-            'tamanho_frota' => $request->tamanho_frota
+            'nome' => $request->nome,
+            'modalidade' => $request->modalidade
         ])->save();
+
+        return redirect("/frotas");
     }
 
     /**

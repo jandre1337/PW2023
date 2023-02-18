@@ -9,8 +9,8 @@
             @method('PUT')
             {{ csrf_field() }}
             <div>
-                <label for="name">Nome:</label>
-                <input id="name" type="text" name="name" value="{{ $frota->name}}">
+                <label for="nome">Nome:</label>
+                <input id="nome" type="text" name="nome" value="{{ $frota->nome}}">
             </div>
 
             <div>

@@ -25,6 +25,16 @@
             </div>
 
             <div>
+                <label for="modalidade">Modalidade:</label>
+                <select  name="modalidade">
+                    <option value="Diario" {{ $selectedModalidade == "Diario" ? 'selected="selected"' : '' }}>Diario</option>
+                    <option value="Mensal" {{ $selectedModalidade == "Mensal" ? 'selected="selected"' : '' }}>Mensal</option>
+                    <option value="Anual" {{ $selectedModalidade == "Anual" ? 'selected="selected"' : '' }}>Anual</option>
+                    <option value="Sem Modalidade" {{ $selectedModalidade == "Sem Modalidade" ? 'selected="selected"' : '' }}>Sem Modalidade</option>
+                </select>
+            </div>
+
+            <div>
                 <input type="submit" value="Adicionar Frota">
             </div>
 

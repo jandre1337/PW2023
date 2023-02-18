@@ -44,7 +44,7 @@ class ClienteController extends Controller
         request()->validate([
             'email' => 'required|email|unique:users,email',
             'name' => 'required',
-            'cc' => 'required|max:10',
+            'cc' => 'required|max:10|unique:users,cc',
             'password' => 'required|min:6'
         ]);
         $clienteService->criarCliente($request);
@@ -90,15 +90,14 @@ class ClienteController extends Controller
      */
     public function update(Request $request,int $cc, ClienteServices $clienteServices)
     {
-
-            $clienteServices->atualizarCliente($request, $cc);
             request()->validate([
                 'email' => 'required|email|unique:users,email',
                 'name' => 'required',
-                'cc' => 'required|max:10',
-                'password' => 'required|min:6'
+                'cc' => 'required|max:10|unique:users,cc',
             ]);
-        }
+            $clienteServices->atualizarCliente($request, $cc);
+        return redirect("/clientes");
+    }
 
 
 
@@ -113,5 +112,23 @@ class ClienteController extends Controller
         $cliente = User::where('cc', $cc)->first();
         $cliente->delete();
         return redirect("/clientes");
+    }
+
+
+    public function saldo_form(Request $request,int $bilhete_id)
+    {
+        return view('cliente-saldo',
+            [
+                'user' => User::where('id', $request->user()->getKey())->first(),
+                'bilhete_id' => $bilhete_id
+            ]);
+    }
+
+    public function saldo_submit(Request $request,int $bilhete_id)
+    {
+        $user = User::where('id', $request->user()->getKey())->first();
+        $user->saldo = $request->saldo;
+        $user->save();
+        return redirect()->action([BilheteController::class, 'pagar_form'], ['bilhete_id' => $bilhete_id]);
     }
 }

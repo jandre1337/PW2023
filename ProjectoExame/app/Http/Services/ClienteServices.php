@@ -42,8 +42,7 @@ class ClienteServices
         $cliente->fill([
             'name' => $request->name,
             'email' => $request->email,
-            'cc' => $request->cc,
-            'Password' => Hash::make($request->Password)
+            'cc' => $request->cc
         ])->save();
     }
 }
