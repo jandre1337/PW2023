@@ -32,10 +32,8 @@ class VeiculoController extends Controller
     {
         if (auth()->user()->can("create", Veiculo::class)){
             return view('veiculo-new',[
-                'users' => User::all(),
-                'frotas' => Frota::all(),
+                'frotas' =>  Frota::where('user_id', $request->user()->getKey())->get(),
                 'selectedFrota' => 0,
-                'selectedUser' => $request->user()->getKey()
             ]);
         } else { return redirect()->back();}
     }
@@ -54,7 +52,6 @@ class VeiculoController extends Controller
                 'marca' => 'required',
                 'modelo' => 'required',
                 'ano' => 'required',
-                'user_id' => 'required',
                 'frota_id' => 'required'
             ]);
             $veiculo = new Veiculo();
@@ -64,15 +61,10 @@ class VeiculoController extends Controller
                 'marca' => $request->marca,
                 'modelo' => $request->modelo,
                 'ano' => $request->ano,
-                'user_id' => $request->user_id,
+                'user_id' => $request->user()->getKey(),
                 'frota_id' => $request->frota_id,
             ])->save();
         } else { return redirect()->back();}
-
-
-
-
-
 
         $frota = Frota::where('id', $request->frota_id)->first();
         $veiculos_da_frota = Veiculo::where('frota_id', $request->frota_id)->get();
@@ -99,16 +91,14 @@ class VeiculoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
         $veiculo = Veiculo::where('id', $id)->first();
         return view('veiculo-edit',
             [
                 'veiculo' =>  $veiculo,
-                'users' => User::all(),
-                'frotas' => Frota::all(),
+                'frotas' =>  Frota::where('user_id', $request->user()->getKey())->get(),
                 'selectedFrota' => $veiculo->frota_id,
-                'selectedUser' => $veiculo->user_id
             ]);
     }
 
@@ -126,20 +116,25 @@ class VeiculoController extends Controller
             'marca' => 'required',
             'modelo' => 'required',
             'ano' => 'required',
-            'user_id' => 'required',
             'frota_id' => 'required'
         ]);
 
         $veiculo = Veiculo::where('id', $id)->first();
+        $frota_antiga = Frota::where('id', $veiculo->frota_id)->first();
+        $frota_nova = Frota::where('id', $request->frota_id)->first();
 
         $veiculo->fill([
             'matricula' => $request->matricula,
             'marca' => $request->marca,
             'modelo' => $request->modelo,
             'ano' => $request->ano,
-            'user_id' => $request->user_id,
             'frota_id' => $request->frota_id,
         ])->save();
+
+        $frota_antiga->tamanho_frota = Veiculo::where('frota_id',$frota_antiga->id)->get()->count();
+        $frota_nova->tamanho_frota = Veiculo::where('frota_id',$frota_nova->id)->get()->count();
+        $frota_antiga->save();
+        $frota_nova->save();
 
         return redirect("/veiculos");
     }

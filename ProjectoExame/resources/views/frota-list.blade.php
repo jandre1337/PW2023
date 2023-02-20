@@ -28,7 +28,6 @@
             </thead>
             <tbody><div class="container bg-secondary text-white" >
             @foreach ($frotas as $frota)
-
             <tr>
                 <td>{{ $frota->nome }}</td>
                 <td>{{ $frota->id }}</td>

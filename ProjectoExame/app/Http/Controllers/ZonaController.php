@@ -95,7 +95,7 @@ class ZonaController extends Controller
         return view('zona-edit',
             [
                 'zona' => $zona,
-                'pisos' => Piso::all(),
+                'pisos' => Piso::where('parque_id', $zona->piso->parque_id)->get(),
                 'selectedPiso' => $zona->piso_id,
             ]);
     }

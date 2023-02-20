@@ -21,7 +21,7 @@ class BilheteService
         $bilhete = new Bilhete();
 
         $lugares_disponiveis = Lugar::where('veiculo_id',null)->Where('zona_id',$request->zona_id)->get();
-        $lugar = $lugares_disponiveis[rand(0,$lugares_disponiveis->count())];
+        $lugar = $lugares_disponiveis[rand(0,$lugares_disponiveis->count()-1)];
         $lugar->fill([
             'veiculo_id' => $veiculo != null? $veiculo->id : null,
             'estado' =>1,

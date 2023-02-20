@@ -19,7 +19,8 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr>
-                <th>Tipo Zona</th>
+                <th>Nome Zona</th>
+                <th>Parque</th>
                 <th>Piso</th>
                 <th>Valor Zona</th>
                 <th>Ações</th>
@@ -30,6 +31,7 @@
 
             <tr>
                 <td>{{ $zona->tipo_zona }}</td>
+                <td>{{ $zona->piso->parque->nome }}</td>
                 <td>{{ $zona->piso->n_piso }}</td>
                 <td>{{ $zona->valor_zona }}</td>
                 <td>

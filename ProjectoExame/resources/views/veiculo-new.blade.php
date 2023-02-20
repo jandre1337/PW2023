@@ -19,16 +19,6 @@
 
             {{ csrf_field() }}
 
-            <div>
-                <label for="user_id">User:</label>
-                <select  name="user_id">
-                    @if ($users->count())
-                        @foreach($users as $user)
-                            <option value="{{ $user->id }}" {{ $selectedUser == $user->id ? 'selected="selected"' : '' }}>{{ $user->name }}</option>
-                        @endforeach
-                    @endif
-                </select>
-            </div>
 
             <div>
                 <label for="frota_id">Frota:</label>

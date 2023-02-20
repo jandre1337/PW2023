@@ -107,7 +107,8 @@ class FrotaController extends Controller
 
         $frota->fill([
             'nome' => $request->nome,
-            'modalidade' => $request->modalidade
+            'modalidade' => $request->modalidade,
+            'tamanho_frota' => Veiculo::where('frota_id',$id)->get()->count()
         ])->save();
 
         return redirect("/frotas");
